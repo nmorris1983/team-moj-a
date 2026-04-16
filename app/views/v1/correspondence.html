@@ -1,0 +1,42 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Send correspondence — " + caseData.id %}
+
+{% block beforeContent %}
+  {{ govukPhaseBanner({
+    tag: { text: "Alpha" },
+    html: 'This is a prototype — your <a class="govuk-link" href="#">feedback</a> will help us improve it.'
+  }) }}
+  {{ govukBackLink({
+    text: "Back to case",
+    href: "/v1/case/" + caseData.id
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <span class="govuk-caption-l">{{ caseData.id }} — {{ caseData.applicant.name }}</span>
+      <h1 class="govuk-heading-l">Send correspondence</h1>
+
+      <p class="govuk-body">Choose a letter template. The letter will be pre-populated with case details.</p>
+
+      {% for tmpl in templates %}
+        {% if tmpl.applicableTo === 'all' or (tmpl.applicableTo === 'has-representative' and caseData.applicant.representative) %}
+          <div class="govuk-!-margin-bottom-6">
+            <h2 class="govuk-heading-m">{{ tmpl.name }}</h2>
+            <p class="govuk-body">{{ tmpl.description }}</p>
+            {{ govukButton({
+              text: "Use this template",
+              href: "/v1/correspondence/" + caseData.id + "/" + tmpl.id,
+              classes: "govuk-button--secondary"
+            }) }}
+          </div>
+          <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+        {% endif %}
+      {% endfor %}
+
+    </div>
+  </div>
+{% endblock %}

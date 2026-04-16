@@ -1,0 +1,56 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Preview letter — " + caseData.id %}
+
+{% block beforeContent %}
+  {{ govukPhaseBanner({
+    tag: { text: "Alpha" },
+    html: 'This is a prototype — your <a class="govuk-link" href="#">feedback</a> will help us improve it.'
+  }) }}
+  {{ govukBackLink({
+    text: "Back to compose",
+    href: "/v1/correspondence/" + caseData.id + "/" + template.id
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <span class="govuk-caption-l">{{ caseData.id }} — {{ caseData.applicant.name }}</span>
+      <h1 class="govuk-heading-l">Preview: {{ template.name }}</h1>
+
+      {{ govukInsetText({
+        text: "Review the letter below. If you are happy with it, confirm to send."
+      }) }}
+
+      {# Letter preview #}
+      <div class="govuk-!-padding-6" style="background-color: #f3f2f1; border-left: 4px solid #0b0c0c;">
+        <p class="govuk-body" style="white-space: pre-line;">{{ letterText }}</p>
+      </div>
+
+      <form method="post" action="/v1/correspondence/{{ caseData.id }}/{{ template.id }}/send">
+
+        {{ govukRadios({
+          name: "confirm-send",
+          fieldset: {
+            legend: {
+              text: "Are you happy with this letter?",
+              classes: "govuk-fieldset__legend--m"
+            }
+          },
+          items: [
+            { value: "yes", text: "Yes, send this letter" },
+            { value: "no", text: "No, go back and make changes" }
+          ]
+        }) }}
+
+        {{ govukButton({
+          text: "Confirm"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+{% endblock %}

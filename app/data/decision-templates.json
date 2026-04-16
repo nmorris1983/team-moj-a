@@ -1,0 +1,345 @@
+{
+  "templates": [
+    {
+      "id": "dt-pip",
+      "benefitType": "Personal Independence Payment",
+      "sections": [
+        {
+          "id": "dt-pip-summary",
+          "title": "Decision summary",
+          "type": "decision",
+          "fields": [
+            {
+              "id": "outcome",
+              "label": "What is your decision?",
+              "hint": "Select the outcome of this mandatory reconsideration.",
+              "type": "radios",
+              "options": [
+                "Uphold the original decision",
+                "Revise the original decision in the applicant's favour",
+                "Revise the original decision — reduced award"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "dt-pip-daily-living",
+          "title": "Daily living activities",
+          "type": "criterion",
+          "criterionId": "pip-daily-living",
+          "descriptors": [
+            "Preparing food",
+            "Taking nutrition",
+            "Managing therapy or monitoring a health condition",
+            "Washing and bathing",
+            "Managing toilet needs",
+            "Dressing and undressing",
+            "Communicating verbally",
+            "Reading and understanding signs, symbols and words",
+            "Engaging with other people face to face",
+            "Making budgeting decisions"
+          ],
+          "fields": [
+            {
+              "id": "daily-living-finding",
+              "label": "Finding for daily living activities",
+              "hint": "Does the evidence support that the applicant has limited ability in daily living activities?",
+              "type": "radios",
+              "options": [
+                "Criteria met — enhanced rate",
+                "Criteria met — standard rate",
+                "Criteria not met",
+                "Insufficient evidence to determine"
+              ]
+            },
+            {
+              "id": "daily-living-reasoning",
+              "label": "Reasoning",
+              "hint": "Explain what evidence you relied on and how you applied the descriptors. Reference specific documents.",
+              "type": "textarea"
+            }
+          ]
+        },
+        {
+          "id": "dt-pip-mobility",
+          "title": "Mobility activities",
+          "type": "criterion",
+          "criterionId": "pip-mobility",
+          "descriptors": [
+            "Planning and following journeys",
+            "Moving around"
+          ],
+          "fields": [
+            {
+              "id": "mobility-finding",
+              "label": "Finding for mobility activities",
+              "hint": "Does the evidence support that the applicant has limited mobility?",
+              "type": "radios",
+              "options": [
+                "Criteria met — enhanced rate",
+                "Criteria met — standard rate",
+                "Criteria not met",
+                "Insufficient evidence to determine"
+              ]
+            },
+            {
+              "id": "mobility-reasoning",
+              "label": "Reasoning",
+              "hint": "Explain what evidence you relied on and how you applied the descriptors. Reference specific documents.",
+              "type": "textarea"
+            }
+          ]
+        },
+        {
+          "id": "dt-pip-quality",
+          "title": "Quality checklist",
+          "type": "checklist",
+          "items": [
+            "I have considered all the evidence on file",
+            "I have applied the correct legal test for each criterion",
+            "I have recorded a finding for each relevant descriptor",
+            "My reasoning references specific evidence",
+            "I have considered the applicant's own account",
+            "The decision is consistent with similar cases",
+            "The decision notice is written in plain English"
+          ]
+        }
+      ],
+      "noticeTemplate": {
+        "opening": "Dear {{applicantName}},\n\nWe have looked at your request to reconsider the decision about your Personal Independence Payment made on {{originalDecisionDate}}.",
+        "outcomeUphold": "After carefully considering all the evidence, we have decided that the original decision was correct. Your award remains unchanged.",
+        "outcomeRevise": "After carefully considering all the evidence, we have decided to change the original decision.",
+        "reasoningIntro": "We made this decision because:",
+        "appealRights": "If you disagree with this decision, you can appeal to an independent tribunal. You must do this within one month of the date of this letter. To appeal, you need to complete form SSCS1, which you can get from your local Citizens Advice or download from www.gov.uk.",
+        "closing": "Yours sincerely,\n\n{{caseworkerName}}\nDecision Maker\nDepartment for Work and Pensions"
+      }
+    },
+    {
+      "id": "dt-esa",
+      "benefitType": "Employment and Support Allowance",
+      "sections": [
+        {
+          "id": "dt-esa-summary",
+          "title": "Decision summary",
+          "type": "decision",
+          "fields": [
+            {
+              "id": "outcome",
+              "label": "What is your decision?",
+              "hint": "Select the outcome of this mandatory reconsideration.",
+              "type": "radios",
+              "options": [
+                "Uphold the original decision — fit for work",
+                "Revise — limited capability for work (work-related activity group)",
+                "Revise — limited capability for work-related activity (support group)"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "dt-esa-lcw",
+          "title": "Limited capability for work",
+          "type": "criterion",
+          "criterionId": "esa-lcw",
+          "descriptors": [
+            "Mobilising",
+            "Standing and sitting",
+            "Reaching",
+            "Picking up and moving things",
+            "Manual dexterity",
+            "Making yourself understood",
+            "Understanding communication",
+            "Navigation and maintaining safety",
+            "Absence or loss of control whilst conscious",
+            "Consciousness during waking moments",
+            "Learning tasks",
+            "Awareness of everyday hazards",
+            "Initiating and completing personal action",
+            "Coping with change",
+            "Getting about",
+            "Coping with social engagement",
+            "Appropriateness of behaviour with other people"
+          ],
+          "fields": [
+            {
+              "id": "lcw-finding",
+              "label": "Finding for limited capability for work",
+              "hint": "Does the evidence support that the applicant has limited capability for work?",
+              "type": "radios",
+              "options": [
+                "Criteria met — 15 or more points",
+                "Criteria not met — fewer than 15 points",
+                "Insufficient evidence to determine"
+              ]
+            },
+            {
+              "id": "lcw-reasoning",
+              "label": "Reasoning",
+              "hint": "Explain what evidence you relied on and how you scored the descriptors.",
+              "type": "textarea"
+            }
+          ]
+        },
+        {
+          "id": "dt-esa-lcwra",
+          "title": "Limited capability for work-related activity",
+          "type": "criterion",
+          "criterionId": "esa-lcwra",
+          "descriptors": [
+            "Cannot mobilise more than 50 metres without stopping",
+            "Cannot raise either arm to head height",
+            "Cannot press a button with either hand",
+            "Has substantial risk to themselves or others if found fit for work",
+            "Is receiving or recovering from treatment for cancer",
+            "Has severe uncontrolled episodes of loss of consciousness"
+          ],
+          "fields": [
+            {
+              "id": "lcwra-finding",
+              "label": "Finding for limited capability for work-related activity",
+              "hint": "Does the evidence support that the applicant should be placed in the support group?",
+              "type": "radios",
+              "options": [
+                "Criteria met — at least one support group descriptor applies",
+                "Criteria not met",
+                "Insufficient evidence to determine"
+              ]
+            },
+            {
+              "id": "lcwra-reasoning",
+              "label": "Reasoning",
+              "hint": "Explain what evidence you relied on and which support group descriptor applies.",
+              "type": "textarea"
+            }
+          ]
+        },
+        {
+          "id": "dt-esa-quality",
+          "title": "Quality checklist",
+          "type": "checklist",
+          "items": [
+            "I have considered all the evidence on file",
+            "I have applied the correct legal test for each descriptor",
+            "I have recorded a points score where applicable",
+            "My reasoning references specific evidence",
+            "I have considered the applicant's own account",
+            "The decision is consistent with similar cases",
+            "The decision notice is written in plain English"
+          ]
+        }
+      ],
+      "noticeTemplate": {
+        "opening": "Dear {{applicantName}},\n\nWe have looked at your request to reconsider the decision about your Employment and Support Allowance made on {{originalDecisionDate}}.",
+        "outcomeUphold": "After carefully considering all the evidence, we have decided that the original decision was correct.",
+        "outcomeRevise": "After carefully considering all the evidence, we have decided to change the original decision.",
+        "reasoningIntro": "We made this decision because:",
+        "appealRights": "If you disagree with this decision, you can appeal to an independent tribunal. You must do this within one month of the date of this letter. To appeal, you need to complete form SSCS1, which you can get from your local Citizens Advice or download from www.gov.uk.",
+        "closing": "Yours sincerely,\n\n{{caseworkerName}}\nDecision Maker\nDepartment for Work and Pensions"
+      }
+    },
+    {
+      "id": "dt-aa",
+      "benefitType": "Attendance Allowance",
+      "sections": [
+        {
+          "id": "dt-aa-summary",
+          "title": "Decision summary",
+          "type": "decision",
+          "fields": [
+            {
+              "id": "outcome",
+              "label": "What is your decision?",
+              "hint": "Select the outcome of this mandatory reconsideration.",
+              "type": "radios",
+              "options": [
+                "Uphold the original decision",
+                "Revise — award higher rate",
+                "Revise — award lower rate",
+                "Revise — remove award"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "dt-aa-day",
+          "title": "Daytime care needs",
+          "type": "criterion",
+          "criterionId": "aa-day",
+          "descriptors": [
+            "Frequent attention in connection with bodily functions",
+            "Continual supervision to avoid substantial danger"
+          ],
+          "fields": [
+            {
+              "id": "day-finding",
+              "label": "Finding for daytime care needs",
+              "hint": "Does the evidence support that the applicant meets the day condition?",
+              "type": "radios",
+              "options": [
+                "Day condition met",
+                "Day condition not met",
+                "Insufficient evidence to determine"
+              ]
+            },
+            {
+              "id": "day-reasoning",
+              "label": "Reasoning",
+              "hint": "Explain what evidence you relied on.",
+              "type": "textarea"
+            }
+          ]
+        },
+        {
+          "id": "dt-aa-night",
+          "title": "Night-time care needs",
+          "type": "criterion",
+          "criterionId": "aa-night",
+          "descriptors": [
+            "Prolonged or repeated attention at night",
+            "Watching over at night for prolonged period or frequent intervals"
+          ],
+          "fields": [
+            {
+              "id": "night-finding",
+              "label": "Finding for night-time care needs",
+              "hint": "Does the evidence support that the applicant meets the night condition?",
+              "type": "radios",
+              "options": [
+                "Night condition met",
+                "Night condition not met",
+                "Insufficient evidence to determine"
+              ]
+            },
+            {
+              "id": "night-reasoning",
+              "label": "Reasoning",
+              "hint": "Explain what evidence you relied on.",
+              "type": "textarea"
+            }
+          ]
+        },
+        {
+          "id": "dt-aa-quality",
+          "title": "Quality checklist",
+          "type": "checklist",
+          "items": [
+            "I have considered all the evidence on file",
+            "I have applied the correct legal test for day and night conditions",
+            "My reasoning references specific evidence",
+            "I have considered the applicant's own account",
+            "The decision is consistent with similar cases",
+            "The decision notice is written in plain English"
+          ]
+        }
+      ],
+      "noticeTemplate": {
+        "opening": "Dear {{applicantName}},\n\nWe have looked at your request to reconsider the decision about your Attendance Allowance made on {{originalDecisionDate}}.",
+        "outcomeUphold": "After carefully considering all the evidence, we have decided that the original decision was correct. Your award remains unchanged.",
+        "outcomeRevise": "After carefully considering all the evidence, we have decided to change the original decision.",
+        "reasoningIntro": "We made this decision because:",
+        "appealRights": "If you disagree with this decision, you can appeal to an independent tribunal. You must do this within one month of the date of this letter. To appeal, you need to complete form SSCS1, which you can get from your local Citizens Advice or download from www.gov.uk.",
+        "closing": "Yours sincerely,\n\n{{caseworkerName}}\nDecision Maker\nDepartment for Work and Pensions"
+      }
+    }
+  ]
+}

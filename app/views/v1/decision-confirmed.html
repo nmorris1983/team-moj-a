@@ -1,0 +1,47 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Decision recorded — " + caseData.id %}
+
+{% block beforeContent %}
+  {{ govukPhaseBanner({
+    tag: { text: "Alpha" },
+    html: 'This is a prototype — your <a class="govuk-link" href="#">feedback</a> will help us improve it.'
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {{ govukPanel({
+        titleText: "Decision recorded",
+        html: "Case reference<br><strong>" + caseData.id + "</strong>"
+      }) }}
+
+      <h2 class="govuk-heading-m">What happens next</h2>
+
+      <p class="govuk-body">The decision notice will be sent to {{ caseData.applicant.name }}.</p>
+
+      {% if caseData.applicant.representative %}
+        <p class="govuk-body">A notification will also be sent to their representative, {{ caseData.applicant.representative.name }}.</p>
+      {% endif %}
+
+      <p class="govuk-body">The case status will be updated to "Decision made" and the payment system will be notified if the award has changed.</p>
+
+      <h2 class="govuk-heading-m">Actions</h2>
+
+      <ul class="govuk-list">
+        <li>
+          <a href="/v1/case/{{ caseData.id }}" class="govuk-link">View case details</a>
+        </li>
+        <li>
+          <a href="/v1/correspondence/{{ caseData.id }}" class="govuk-link">Send correspondence</a>
+        </li>
+        <li>
+          <a href="/v1/dashboard?caseworker={{ caseData.assignedTo }}" class="govuk-link">Return to dashboard</a>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+{% endblock %}

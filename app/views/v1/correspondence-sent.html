@@ -1,0 +1,41 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Letter sent — " + caseData.id %}
+
+{% block beforeContent %}
+  {{ govukPhaseBanner({
+    tag: { text: "Alpha" },
+    html: 'This is a prototype — your <a class="govuk-link" href="#">feedback</a> will help us improve it.'
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {{ govukPanel({
+        titleText: "Letter sent",
+        html: template.name + "<br><strong>" + caseData.id + "</strong>"
+      }) }}
+
+      <h2 class="govuk-heading-m">What happens next</h2>
+
+      <p class="govuk-body">The letter has been recorded against this case. In a live service, it would be sent to the recipient.</p>
+
+      <h2 class="govuk-heading-m">Actions</h2>
+
+      <ul class="govuk-list">
+        <li>
+          <a href="/v1/correspondence/{{ caseData.id }}" class="govuk-link">Send another letter</a>
+        </li>
+        <li>
+          <a href="/v1/case/{{ caseData.id }}" class="govuk-link">View case details</a>
+        </li>
+        <li>
+          <a href="/v1/dashboard?caseworker={{ caseData.assignedTo }}" class="govuk-link">Return to dashboard</a>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+{% endblock %}
