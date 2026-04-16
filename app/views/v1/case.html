@@ -84,6 +84,33 @@
         </ul>
       {% endif %}
 
+      {# Similar cases #}
+      {% if similarPrecedents.length > 0 %}
+        <h2 class="govuk-heading-l">Similar cases</h2>
+        <p class="govuk-body">These past decisions involved similar benefit types and review grounds. They may help with consistency.</p>
+
+        {% for prec in similarPrecedents | batch(3) | first %}
+          <div class="govuk-!-margin-bottom-4">
+            <h3 class="govuk-heading-s govuk-!-margin-bottom-1">
+              <a href="/v1/precedent/{{ prec.id }}?from={{ caseData.id }}" class="govuk-link">{{ prec.id }}</a>
+              — {{ prec.outcome }}
+            </h3>
+            <p class="govuk-body-s govuk-!-margin-bottom-1">
+              {{ prec.benefitType }} · {{ prec.criterion }} · {{ prec.decisionDate }}
+            </p>
+            <p class="govuk-body-s">{{ prec.summary | truncate(200) }}</p>
+          </div>
+        {% endfor %}
+
+        {% if similarPrecedents.length > 3 %}
+          <p class="govuk-body">
+            <a href="/v1/case/{{ caseData.id }}/similar" class="govuk-link">View all {{ similarPrecedents.length }} similar cases</a>
+          </p>
+        {% endif %}
+
+        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+      {% endif %}
+
       {# Evidence #}
       <h2 class="govuk-heading-l">Evidence</h2>
 

@@ -177,6 +177,27 @@
         </ul>
       {% endif %}
 
+      {% if similarPrecedents and similarPrecedents.length > 0 %}
+        <h2 class="govuk-heading-m">Similar past decisions</h2>
+        <p class="govuk-body-s">Consider these for consistency.</p>
+        {% for prec in similarPrecedents | batch(3) | first %}
+          <div class="govuk-!-margin-bottom-3">
+            <p class="govuk-body-s govuk-!-margin-bottom-0">
+              <a href="/v1/precedent/{{ prec.id }}?from={{ caseData.id }}" class="govuk-link">{{ prec.id }}</a>
+            </p>
+            <p class="govuk-body-s govuk-!-margin-bottom-0">
+              <strong>{{ prec.outcome }}</strong>
+            </p>
+            <p class="govuk-body-s">{{ prec.criterion }} · {{ prec.decisionDate }}</p>
+          </div>
+        {% endfor %}
+        {% if similarPrecedents.length > 3 %}
+          <p class="govuk-body-s">
+            <a href="/v1/case/{{ caseData.id }}/similar" class="govuk-link">View all {{ similarPrecedents.length }} similar cases</a>
+          </p>
+        {% endif %}
+      {% endif %}
+
     </div>
   </div>
 {% endblock %}
