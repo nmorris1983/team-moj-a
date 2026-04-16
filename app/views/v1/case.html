@@ -1,0 +1,314 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = caseData.id + " — " + caseData.applicant.name %}
+
+{% block beforeContent %}
+  {{ govukPhaseBanner({
+    tag: { text: "Alpha" },
+    html: 'This is a prototype — your <a class="govuk-link" href="#">feedback</a> will help us improve it.'
+  }) }}
+  {{ govukBackLink({
+    text: "Back to my cases",
+    href: "/v1/dashboard?caseworker=" + caseData.assignedTo
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+      {# Case header #}
+      <span class="govuk-caption-xl">{{ caseData.id }}</span>
+      <h1 class="govuk-heading-xl govuk-!-margin-bottom-2">{{ caseData.applicant.name }}</h1>
+      <p class="govuk-!-margin-bottom-6">
+        {{ govukTag({ text: caseData.status, classes: statusTagClass(caseData.status) }) }}
+        {% set dlTag = deadlineTag(caseData.deadline) %}
+        {% if dlTag %}
+          {{ govukTag({ text: dlTag.text, classes: dlTag.classes }) }}
+        {% endif %}
+      </p>
+
+    </div>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {# Case summary #}
+      <h2 class="govuk-heading-l">Case summary</h2>
+
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: { text: "Benefit type" },
+            value: { text: caseData.benefitType }
+          },
+          {
+            key: { text: "Review grounds" },
+            value: { text: caseData.reviewGrounds }
+          },
+          {
+            key: { text: "Original decision" },
+            value: { html: caseData.originalDecision.summary + "<br>Made on " + caseData.originalDecision.date + " by " + caseData.originalDecision.decisionMaker }
+          },
+          {
+            key: { text: "Date received" },
+            value: { text: caseData.dateReceived }
+          },
+          {
+            key: { text: "Deadline" },
+            value: { text: caseData.deadline }
+          },
+          {
+            key: { text: "Assigned to" },
+            value: { text: caseworker.name if caseworker else "Unassigned" }
+          }
+        ]
+      }) }}
+
+      {# AI advisor #}
+      {% if caseData.aiAdvisor %}
+        <h2 class="govuk-heading-l">AI advisor</h2>
+
+        {{ govukInsetText({
+          html: '<p class="govuk-body"><strong>AI-generated summary</strong> ' +
+            govukTag({ text: caseData.aiAdvisor.confidence + " confidence", classes: "govuk-tag--blue" }) +
+            '</p><p class="govuk-body">' + caseData.aiAdvisor.summary + '</p>'
+        }) }}
+
+        <h3 class="govuk-heading-s">Recommended next actions</h3>
+        <ul class="govuk-list govuk-list--bullet">
+          {% for action in caseData.aiAdvisor.recommendedActions %}
+            <li>{{ action }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      {# Evidence #}
+      <h2 class="govuk-heading-l">Evidence</h2>
+
+      {% if evStatus.total > 0 %}
+        <p class="govuk-body">
+          {{ evStatus.received }} of {{ evStatus.total }} evidence requests received.
+          {% if evStatus.overdue > 0 %}
+            {{ govukTag({ text: evStatus.overdue + " overdue", classes: "govuk-tag--red" }) }}
+          {% endif %}
+          {% if evStatus.pending > 0 %}
+            {{ govukTag({ text: evStatus.pending + " pending", classes: "govuk-tag--yellow" }) }}
+          {% endif %}
+        </p>
+      {% endif %}
+
+      {# Evidence requests #}
+      {% if caseData.evidenceRequests.length > 0 %}
+        <h3 class="govuk-heading-m">Evidence requests</h3>
+        <table class="govuk-table">
+          <caption class="govuk-table__caption govuk-visually-hidden">Evidence requests</caption>
+          <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+              <th scope="col" class="govuk-table__header">Type</th>
+              <th scope="col" class="govuk-table__header">Criterion</th>
+              <th scope="col" class="govuk-table__header">Expected by</th>
+              <th scope="col" class="govuk-table__header">Status</th>
+            </tr>
+          </thead>
+          <tbody class="govuk-table__body">
+            {% for er in caseData.evidenceRequests %}
+              <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">{{ er.type }}</th>
+                <td class="govuk-table__cell">{{ er.criterion }}</td>
+                <td class="govuk-table__cell">{{ er.expectedByDate }}</td>
+                <td class="govuk-table__cell">
+                  {% if er.status === 'Received' %}
+                    {{ govukTag({ text: "Received", classes: "govuk-tag--green" }) }}
+                  {% elif er.status === 'Overdue' %}
+                    {{ govukTag({ text: "Overdue", classes: "govuk-tag--red" }) }}
+                  {% elif er.status === 'Pending' %}
+                    {{ govukTag({ text: "Pending", classes: "govuk-tag--yellow" }) }}
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% endif %}
+
+      {# Documents received #}
+      {% if caseData.evidence.length > 0 %}
+        <h3 class="govuk-heading-m">Documents received</h3>
+        <table class="govuk-table">
+          <caption class="govuk-table__caption govuk-visually-hidden">Documents received</caption>
+          <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+              <th scope="col" class="govuk-table__header">Document</th>
+              <th scope="col" class="govuk-table__header">Source</th>
+              <th scope="col" class="govuk-table__header">Criterion</th>
+              <th scope="col" class="govuk-table__header">Date received</th>
+            </tr>
+          </thead>
+          <tbody class="govuk-table__body">
+            {% for ev in caseData.evidence %}
+              <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">{{ ev.name }}</th>
+                <td class="govuk-table__cell">{{ ev.source }}</td>
+                <td class="govuk-table__cell">{{ ev.criterion }}</td>
+                <td class="govuk-table__cell">{{ ev.dateReceived }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% endif %}
+
+      {# Case history #}
+      <h2 class="govuk-heading-l">Case history</h2>
+
+      <table class="govuk-table">
+        <caption class="govuk-table__caption govuk-visually-hidden">Case history</caption>
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Date</th>
+            <th scope="col" class="govuk-table__header">Event</th>
+            <th scope="col" class="govuk-table__header">Detail</th>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+          {% for event in caseData.history | reverse %}
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell">{{ event.date }}</td>
+              <td class="govuk-table__cell">{{ event.event }}</td>
+              <td class="govuk-table__cell">{{ event.detail }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+    </div>
+
+    {# Sidebar #}
+    <div class="govuk-grid-column-one-third">
+
+      {# Applicant details #}
+      <h2 class="govuk-heading-m">Applicant details</h2>
+
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: { text: "Name" },
+            value: { text: caseData.applicant.name }
+          },
+          {
+            key: { text: "Date of birth" },
+            value: { text: caseData.applicant.dateOfBirth }
+          },
+          {
+            key: { text: "National Insurance number" },
+            value: { text: caseData.applicant.nationalInsuranceNumber }
+          },
+          {
+            key: { text: "Address" },
+            value: { text: caseData.applicant.address }
+          },
+          {
+            key: { text: "Phone" },
+            value: { text: caseData.applicant.phone }
+          },
+          {
+            key: { text: "Email" },
+            value: { text: caseData.applicant.email or "Not provided" }
+          }
+        ]
+      }) }}
+
+      {# Representative #}
+      {% if caseData.applicant.representative %}
+        <h2 class="govuk-heading-m">Representative</h2>
+        {{ govukSummaryList({
+          rows: [
+            {
+              key: { text: "Organisation" },
+              value: { text: caseData.applicant.representative.name }
+            },
+            {
+              key: { text: "Contact" },
+              value: { text: caseData.applicant.representative.contact }
+            },
+            {
+              key: { text: "Reference" },
+              value: { text: caseData.applicant.representative.reference }
+            }
+          ]
+        }) }}
+      {% endif %}
+
+      {# Workflow position #}
+      <h2 class="govuk-heading-m">Workflow</h2>
+
+      {% if isEscalated %}
+        {{ govukInsetText({
+          text: "This case has been escalated to a senior reviewer."
+        }) }}
+      {% endif %}
+
+      <ol class="govuk-list">
+        {% for step in workflowSteps %}
+          <li class="govuk-!-margin-bottom-2">
+            {% if step.stepStatus === 'completed' %}
+              {{ govukTag({ text: "Done", classes: "govuk-tag--green govuk-!-margin-right-1" }) }}
+            {% elif step.stepStatus === 'current' %}
+              {{ govukTag({ text: "Current", classes: "govuk-!-margin-right-1" }) }}
+            {% else %}
+              {{ govukTag({ text: "To do", classes: "govuk-tag--grey govuk-!-margin-right-1" }) }}
+            {% endif %}
+            {{ step.name }}
+          </li>
+        {% endfor %}
+      </ol>
+
+      {# Available actions #}
+      {% if not isEscalated %}
+        {% set currentStep = null %}
+        {% for step in workflowSteps %}
+          {% if step.stepStatus === 'current' %}
+            {% set currentStep = step %}
+          {% endif %}
+        {% endfor %}
+
+        {% if currentStep %}
+          <h3 class="govuk-heading-s">Available actions</h3>
+          <ul class="govuk-list govuk-list--bullet">
+            {% for action in currentStep.actions %}
+              <li>{{ action }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endif %}
+
+      {# Policy guidance #}
+      {% if policy %}
+        <h2 class="govuk-heading-m">Policy guidance</h2>
+        <p class="govuk-body-s">{{ policy.legislation }}</p>
+
+        {% for criterion in policy.criteria %}
+          <details class="govuk-details">
+            <summary class="govuk-details__summary">
+              <span class="govuk-details__summary-text">{{ criterion.name }}</span>
+            </summary>
+            <div class="govuk-details__text">
+              <p class="govuk-body-s">{{ criterion.summary }}</p>
+              {% if criterion.thresholds %}
+                <h4 class="govuk-heading-s govuk-!-margin-bottom-1">Thresholds</h4>
+                <ul class="govuk-list govuk-list--bullet govuk-body-s">
+                  {% for key, value in criterion.thresholds %}
+                    <li><strong>{{ key }}:</strong> {{ value }}</li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+              <p class="govuk-body-s"><strong>Reference:</strong> {{ criterion.reference }}</p>
+            </div>
+          </details>
+        {% endfor %}
+      {% endif %}
+
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,163 @@
+{
+  "policies": [
+    {
+      "id": "policy-pip",
+      "benefitType": "Personal Independence Payment",
+      "legislation": "Welfare Reform Act 2012, Part 4",
+      "criteria": [
+        {
+          "id": "pip-daily-living",
+          "name": "Daily living activities",
+          "summary": "The claimant must show they have difficulty with daily living activities such as preparing food, washing, dressing, communicating, reading, managing medication, or making decisions about money.",
+          "descriptors": [
+            "Preparing food",
+            "Taking nutrition",
+            "Managing therapy or monitoring a health condition",
+            "Washing and bathing",
+            "Managing toilet needs",
+            "Dressing and undressing",
+            "Communicating verbally",
+            "Reading and understanding signs, symbols and words",
+            "Engaging with other people face to face",
+            "Making budgeting decisions"
+          ],
+          "thresholds": {
+            "standardRate": "Score of 8 to 11 points across all daily living activities",
+            "enhancedRate": "Score of 12 or more points across all daily living activities"
+          },
+          "reference": "Social Security (Personal Independence Payment) Regulations 2013, Schedule 1, Part 2"
+        },
+        {
+          "id": "pip-mobility",
+          "name": "Mobility activities",
+          "summary": "The claimant must show they have difficulty with planning and following a journey, or moving around. This covers both physical mobility and cognitive or psychological barriers to travel.",
+          "descriptors": [
+            "Planning and following journeys",
+            "Moving around"
+          ],
+          "thresholds": {
+            "standardRate": "Score of 8 to 11 points across mobility activities",
+            "enhancedRate": "Score of 12 or more points across mobility activities"
+          },
+          "reference": "Social Security (Personal Independence Payment) Regulations 2013, Schedule 1, Part 3"
+        }
+      ]
+    },
+    {
+      "id": "policy-esa",
+      "benefitType": "Employment and Support Allowance",
+      "legislation": "Welfare Reform Act 2007, Part 1",
+      "criteria": [
+        {
+          "id": "esa-lcw",
+          "name": "Limited capability for work",
+          "summary": "The claimant must show that their physical or mental health condition limits their capability for work. This is assessed through a work capability assessment looking at specific activities.",
+          "descriptors": [
+            "Mobilising",
+            "Standing and sitting",
+            "Reaching",
+            "Picking up and moving things",
+            "Manual dexterity",
+            "Making yourself understood",
+            "Understanding communication",
+            "Navigation and maintaining safety",
+            "Absence or loss of control whilst conscious",
+            "Consciousness during waking moments",
+            "Learning tasks",
+            "Awareness of everyday hazards",
+            "Initiating and completing personal action",
+            "Coping with change",
+            "Getting about",
+            "Coping with social engagement",
+            "Appropriateness of behaviour with other people"
+          ],
+          "thresholds": {
+            "limitedCapability": "Score of 15 or more points across all activities"
+          },
+          "reference": "Employment and Support Allowance Regulations 2008, Schedule 2"
+        },
+        {
+          "id": "esa-lcwra",
+          "name": "Limited capability for work-related activity",
+          "summary": "The claimant must show that their condition is so severe that it would be unreasonable to require them to undertake any work-related activity. This places them in the support group.",
+          "descriptors": [
+            "Cannot mobilise more than 50 metres without stopping",
+            "Cannot raise either arm to head height",
+            "Cannot press a button with either hand",
+            "Has substantial risk to themselves or others if found fit for work",
+            "Is receiving or recovering from treatment for cancer",
+            "Has severe uncontrolled episodes of loss of consciousness"
+          ],
+          "thresholds": {
+            "supportGroup": "Meeting at least one descriptor from the support group activities"
+          },
+          "reference": "Employment and Support Allowance Regulations 2008, Schedule 3"
+        }
+      ]
+    },
+    {
+      "id": "policy-uc-lcw",
+      "benefitType": "Universal Credit — Limited capability for work",
+      "legislation": "Welfare Reform Act 2012, Part 1",
+      "criteria": [
+        {
+          "id": "uc-lcw",
+          "name": "Limited capability for work",
+          "summary": "The claimant must show that their physical or mental health condition limits their capability for work. The assessment uses the same work capability assessment descriptors as ESA.",
+          "descriptors": [
+            "Same descriptors as ESA limited capability for work"
+          ],
+          "thresholds": {
+            "limitedCapability": "Score of 15 or more points across all activities"
+          },
+          "reference": "Universal Credit Regulations 2013, Schedule 6"
+        },
+        {
+          "id": "uc-lcwra",
+          "name": "Limited capability for work-related activity",
+          "summary": "The claimant must show that their condition is so severe that it would be unreasonable to require them to undertake any work-related activity. This results in an additional element in their Universal Credit payment.",
+          "descriptors": [
+            "Same descriptors as ESA support group"
+          ],
+          "thresholds": {
+            "supportGroup": "Meeting at least one descriptor from the support group activities"
+          },
+          "reference": "Universal Credit Regulations 2013, Schedule 7"
+        }
+      ]
+    },
+    {
+      "id": "policy-aa",
+      "benefitType": "Attendance Allowance",
+      "legislation": "Social Security Contributions and Benefits Act 1992, Section 64",
+      "criteria": [
+        {
+          "id": "aa-day",
+          "name": "Daytime care needs",
+          "summary": "The claimant must show they need frequent attention throughout the day in connection with bodily functions, or continual supervision to avoid substantial danger to themselves or others.",
+          "descriptors": [
+            "Frequent attention in connection with bodily functions",
+            "Continual supervision to avoid substantial danger"
+          ],
+          "thresholds": {
+            "lowerRate": "Meets the day condition or the night condition"
+          },
+          "reference": "Social Security Contributions and Benefits Act 1992, Section 64(2)"
+        },
+        {
+          "id": "aa-night",
+          "name": "Night-time care needs",
+          "summary": "The claimant must show they need prolonged or repeated attention at night in connection with bodily functions, or another person to be awake at night for a prolonged period or at frequent intervals to watch over them.",
+          "descriptors": [
+            "Prolonged or repeated attention at night",
+            "Watching over at night for prolonged period or frequent intervals"
+          ],
+          "thresholds": {
+            "higherRate": "Meets both the day condition and the night condition"
+          },
+          "reference": "Social Security Contributions and Benefits Act 1992, Section 64(3)"
+        }
+      ]
+    }
+  ]
+}

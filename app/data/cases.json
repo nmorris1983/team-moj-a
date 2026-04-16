@@ -1,0 +1,569 @@
+{
+  "cases": [
+    {
+      "id": "CR-2026-001",
+      "applicant": {
+        "name": "James Morton",
+        "dateOfBirth": "14 March 1978",
+        "nationalInsuranceNumber": "QQ 12 34 56 A",
+        "address": "12 Elm Street, Bristol, BS1 4DJ",
+        "phone": "07700 900123",
+        "email": "james.morton@example.com",
+        "representative": null
+      },
+      "benefitType": "Personal Independence Payment",
+      "reviewGrounds": "Change of circumstances — mobility component",
+      "originalDecision": {
+        "date": "8 January 2026",
+        "summary": "Standard rate mobility, enhanced rate daily living. Awarded for 3 years.",
+        "decisionMaker": "Sarah Patel"
+      },
+      "status": "Awaiting evidence",
+      "assignedTo": "caseworker-1",
+      "dateReceived": "2 February 2026",
+      "deadline": "16 April 2026",
+      "evidenceRequests": [
+        {
+          "id": "ER-001",
+          "type": "GP medical report",
+          "criterion": "Mobility activities",
+          "requestedDate": "10 February 2026",
+          "expectedByDate": "10 March 2026",
+          "receivedDate": null,
+          "status": "Overdue"
+        },
+        {
+          "id": "ER-002",
+          "type": "Physiotherapy assessment",
+          "criterion": "Mobility activities",
+          "requestedDate": "10 February 2026",
+          "expectedByDate": "24 March 2026",
+          "receivedDate": "18 March 2026",
+          "status": "Received"
+        }
+      ],
+      "evidence": [
+        {
+          "id": "EV-001",
+          "name": "Original claim form (PIP2)",
+          "source": "Applicant",
+          "dateReceived": "2 February 2026",
+          "criterion": "All criteria",
+          "type": "Form"
+        },
+        {
+          "id": "EV-002",
+          "name": "Physiotherapy assessment report",
+          "source": "Bristol Royal Infirmary",
+          "dateReceived": "18 March 2026",
+          "criterion": "Mobility activities",
+          "type": "Medical report"
+        }
+      ],
+      "history": [
+        {
+          "date": "2 February 2026",
+          "event": "Case received",
+          "detail": "Mandatory reconsideration request received from applicant."
+        },
+        {
+          "date": "5 February 2026",
+          "event": "Case assigned",
+          "detail": "Assigned to Alex Turner."
+        },
+        {
+          "date": "10 February 2026",
+          "event": "Evidence requested",
+          "detail": "GP medical report and physiotherapy assessment requested."
+        },
+        {
+          "date": "18 March 2026",
+          "event": "Evidence received",
+          "detail": "Physiotherapy assessment received from Bristol Royal Infirmary."
+        }
+      ],
+      "workflowPosition": "gather-evidence",
+      "aiAdvisor": {
+        "summary": "James Morton is requesting a review of his PIP mobility component following a change in circumstances. He reports increased difficulty walking and has provided a physiotherapy assessment supporting reduced mobility. A GP report has been requested but is now overdue. The physiotherapy report suggests his walking distance has reduced from 200 metres to under 50 metres.",
+        "recommendedActions": [
+          "Chase the overdue GP medical report — it was due on 10 March 2026",
+          "Review the physiotherapy assessment against the mobility activity descriptors",
+          "Consider whether the available evidence is sufficient to proceed without the GP report"
+        ],
+        "confidence": "medium"
+      }
+    },
+    {
+      "id": "CR-2026-002",
+      "applicant": {
+        "name": "Priya Sharma",
+        "dateOfBirth": "22 July 1985",
+        "nationalInsuranceNumber": "AB 98 76 54 C",
+        "address": "45 Oak Lane, Leeds, LS1 3EX",
+        "phone": "07700 900456",
+        "email": "priya.sharma@example.com",
+        "representative": {
+          "name": "Citizens Advice Leeds",
+          "contact": "0113 222 4567",
+          "reference": "CA-LEE-2026-789"
+        }
+      },
+      "benefitType": "Employment and Support Allowance",
+      "reviewGrounds": "Fit for work decision disputed — limited capability for work",
+      "originalDecision": {
+        "date": "15 December 2025",
+        "summary": "Found fit for work. ESA claim closed.",
+        "decisionMaker": "David Chen"
+      },
+      "status": "Ready for decision",
+      "assignedTo": "caseworker-1",
+      "dateReceived": "6 January 2026",
+      "deadline": "20 April 2026",
+      "evidenceRequests": [
+        {
+          "id": "ER-003",
+          "type": "Consultant psychiatrist report",
+          "criterion": "Mental health function",
+          "requestedDate": "15 January 2026",
+          "expectedByDate": "15 February 2026",
+          "receivedDate": "12 February 2026",
+          "status": "Received"
+        },
+        {
+          "id": "ER-004",
+          "type": "Employer sickness record",
+          "criterion": "Work capability",
+          "requestedDate": "15 January 2026",
+          "expectedByDate": "15 February 2026",
+          "receivedDate": "20 February 2026",
+          "status": "Received"
+        }
+      ],
+      "evidence": [
+        {
+          "id": "EV-003",
+          "name": "ESA50 questionnaire",
+          "source": "Applicant",
+          "dateReceived": "6 January 2026",
+          "criterion": "All criteria",
+          "type": "Form"
+        },
+        {
+          "id": "EV-004",
+          "name": "Consultant psychiatrist report",
+          "source": "Dr R. Okonkwo, Leeds General",
+          "dateReceived": "12 February 2026",
+          "criterion": "Mental health function",
+          "type": "Medical report"
+        },
+        {
+          "id": "EV-005",
+          "name": "Employer sickness absence record",
+          "source": "Employer (via applicant)",
+          "dateReceived": "20 February 2026",
+          "criterion": "Work capability",
+          "type": "Employment record"
+        },
+        {
+          "id": "EV-006",
+          "name": "Citizens Advice supporting letter",
+          "source": "Citizens Advice Leeds",
+          "dateReceived": "10 January 2026",
+          "criterion": "All criteria",
+          "type": "Supporting letter"
+        }
+      ],
+      "history": [
+        {
+          "date": "6 January 2026",
+          "event": "Case received",
+          "detail": "Mandatory reconsideration request received via Citizens Advice."
+        },
+        {
+          "date": "8 January 2026",
+          "event": "Case assigned",
+          "detail": "Assigned to Alex Turner."
+        },
+        {
+          "date": "10 January 2026",
+          "event": "Supporting letter received",
+          "detail": "Citizens Advice Leeds submitted a supporting letter."
+        },
+        {
+          "date": "15 January 2026",
+          "event": "Evidence requested",
+          "detail": "Psychiatrist report and employer sickness record requested."
+        },
+        {
+          "date": "12 February 2026",
+          "event": "Evidence received",
+          "detail": "Consultant psychiatrist report received."
+        },
+        {
+          "date": "20 February 2026",
+          "event": "Evidence received",
+          "detail": "Employer sickness record received."
+        },
+        {
+          "date": "25 February 2026",
+          "event": "Status updated",
+          "detail": "All evidence received. Case marked as ready for decision."
+        }
+      ],
+      "workflowPosition": "make-decision",
+      "aiAdvisor": {
+        "summary": "Priya Sharma is disputing a fit-for-work decision that closed her ESA claim. She has a diagnosed anxiety disorder and depression. The psychiatrist report confirms she has significant difficulty with social engagement and coping with change. Her employer's sickness record shows 47 days of absence in the past 6 months. All requested evidence has been received and the case is ready for a decision.",
+        "recommendedActions": [
+          "Review the psychiatrist report against the limited capability for work descriptors",
+          "Cross-reference the sickness absence record with the reported functional limitations",
+          "Consider whether the evidence meets the threshold for the support group"
+        ],
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "CR-2026-003",
+      "applicant": {
+        "name": "Robert Williams",
+        "dateOfBirth": "3 November 1962",
+        "nationalInsuranceNumber": "CD 55 66 77 B",
+        "address": "8 Birch Close, Manchester, M1 2AB",
+        "phone": "07700 900789",
+        "email": null,
+        "representative": null
+      },
+      "benefitType": "Personal Independence Payment",
+      "reviewGrounds": "Award review — daily living component",
+      "originalDecision": {
+        "date": "20 November 2025",
+        "summary": "Enhanced rate daily living, standard rate mobility. Awarded for 2 years.",
+        "decisionMaker": "Sarah Patel"
+      },
+      "status": "In progress",
+      "assignedTo": "caseworker-2",
+      "dateReceived": "15 January 2026",
+      "deadline": "29 April 2026",
+      "evidenceRequests": [
+        {
+          "id": "ER-005",
+          "type": "Occupational therapy report",
+          "criterion": "Daily living activities",
+          "requestedDate": "22 January 2026",
+          "expectedByDate": "22 February 2026",
+          "receivedDate": "19 February 2026",
+          "status": "Received"
+        }
+      ],
+      "evidence": [
+        {
+          "id": "EV-007",
+          "name": "PIP2 review form",
+          "source": "Applicant",
+          "dateReceived": "15 January 2026",
+          "criterion": "All criteria",
+          "type": "Form"
+        },
+        {
+          "id": "EV-008",
+          "name": "Occupational therapy assessment",
+          "source": "Manchester OT Services",
+          "dateReceived": "19 February 2026",
+          "criterion": "Daily living activities",
+          "type": "Medical report"
+        }
+      ],
+      "history": [
+        {
+          "date": "15 January 2026",
+          "event": "Case received",
+          "detail": "Scheduled award review initiated."
+        },
+        {
+          "date": "17 January 2026",
+          "event": "Case assigned",
+          "detail": "Assigned to Maria Gonzalez."
+        },
+        {
+          "date": "22 January 2026",
+          "event": "Evidence requested",
+          "detail": "Occupational therapy report requested."
+        },
+        {
+          "date": "19 February 2026",
+          "event": "Evidence received",
+          "detail": "OT assessment received from Manchester OT Services."
+        },
+        {
+          "date": "10 March 2026",
+          "event": "Review started",
+          "detail": "Caseworker began reviewing evidence against daily living descriptors."
+        }
+      ],
+      "workflowPosition": "review-evidence",
+      "aiAdvisor": {
+        "summary": "Robert Williams is undergoing a scheduled review of his PIP daily living component. The occupational therapy assessment indicates his needs have remained stable since the original award. He continues to require assistance with preparing food, washing, and managing medication. No significant change in circumstances has been reported.",
+        "recommendedActions": [
+          "Compare the OT assessment findings with the original award descriptors",
+          "Check whether the evidence supports maintaining the current award level",
+          "Prepare a decision to maintain, increase, or reduce the award"
+        ],
+        "confidence": "high"
+      }
+    },
+    {
+      "id": "CR-2026-004",
+      "applicant": {
+        "name": "Fatima Al-Hassan",
+        "dateOfBirth": "9 June 1990",
+        "nationalInsuranceNumber": "EF 33 44 55 D",
+        "address": "27 Cedar Road, Birmingham, B2 5TH",
+        "phone": "07700 900321",
+        "email": "fatima.alhassan@example.com",
+        "representative": {
+          "name": "Disability Rights UK — Birmingham",
+          "contact": "0121 333 4567",
+          "reference": "DR-BHM-2026-456"
+        }
+      },
+      "benefitType": "Universal Credit — Limited capability for work",
+      "reviewGrounds": "Disputed work capability assessment outcome",
+      "originalDecision": {
+        "date": "5 January 2026",
+        "summary": "Found to have limited capability for work but not limited capability for work-related activity.",
+        "decisionMaker": "James O'Brien"
+      },
+      "status": "New",
+      "assignedTo": "caseworker-1",
+      "dateReceived": "10 April 2026",
+      "deadline": "24 May 2026",
+      "evidenceRequests": [],
+      "evidence": [
+        {
+          "id": "EV-009",
+          "name": "UC50 questionnaire",
+          "source": "Applicant",
+          "dateReceived": "10 April 2026",
+          "criterion": "All criteria",
+          "type": "Form"
+        }
+      ],
+      "history": [
+        {
+          "date": "10 April 2026",
+          "event": "Case received",
+          "detail": "Mandatory reconsideration request received via Disability Rights UK."
+        },
+        {
+          "date": "14 April 2026",
+          "event": "Case assigned",
+          "detail": "Assigned to Alex Turner."
+        }
+      ],
+      "workflowPosition": "initial-review",
+      "aiAdvisor": {
+        "summary": "Fatima Al-Hassan is disputing a work capability assessment that found her to have limited capability for work but not for work-related activity. She has a representative from Disability Rights UK. The case is newly received and only the UC50 questionnaire is on file. No additional evidence has been requested yet.",
+        "recommendedActions": [
+          "Review the UC50 questionnaire to understand the applicant's reported limitations",
+          "Identify which descriptors are in dispute and what evidence would be needed",
+          "Send evidence requests for relevant medical and specialist reports"
+        ],
+        "confidence": "low"
+      }
+    },
+    {
+      "id": "CR-2026-005",
+      "applicant": {
+        "name": "Thomas Clarke",
+        "dateOfBirth": "28 August 1955",
+        "nationalInsuranceNumber": "GH 77 88 99 A",
+        "address": "3 Willow Way, Newcastle, NE1 7RU",
+        "phone": "07700 900654",
+        "email": null,
+        "representative": null
+      },
+      "benefitType": "Attendance Allowance",
+      "reviewGrounds": "New claim — higher rate disputed",
+      "originalDecision": {
+        "date": "1 March 2026",
+        "summary": "Lower rate Attendance Allowance awarded. Higher rate refused — night-time needs not evidenced.",
+        "decisionMaker": "Lisa Thompson"
+      },
+      "status": "Escalated",
+      "assignedTo": "caseworker-2",
+      "dateReceived": "20 March 2026",
+      "deadline": "4 May 2026",
+      "evidenceRequests": [
+        {
+          "id": "ER-006",
+          "type": "District nurse care log",
+          "criterion": "Night-time needs",
+          "requestedDate": "25 March 2026",
+          "expectedByDate": "25 April 2026",
+          "receivedDate": null,
+          "status": "Pending"
+        }
+      ],
+      "evidence": [
+        {
+          "id": "EV-010",
+          "name": "AA1 claim form",
+          "source": "Applicant",
+          "dateReceived": "20 March 2026",
+          "criterion": "All criteria",
+          "type": "Form"
+        },
+        {
+          "id": "EV-011",
+          "name": "GP letter confirming diagnosis",
+          "source": "Dr P. Henderson, Newcastle",
+          "dateReceived": "20 March 2026",
+          "criterion": "All criteria",
+          "type": "Medical report"
+        }
+      ],
+      "history": [
+        {
+          "date": "20 March 2026",
+          "event": "Case received",
+          "detail": "Mandatory reconsideration request received from applicant."
+        },
+        {
+          "date": "22 March 2026",
+          "event": "Case assigned",
+          "detail": "Assigned to Maria Gonzalez."
+        },
+        {
+          "date": "25 March 2026",
+          "event": "Evidence requested",
+          "detail": "District nurse care log requested to evidence night-time needs."
+        },
+        {
+          "date": "8 April 2026",
+          "event": "Escalated",
+          "detail": "Escalated to senior reviewer — complex night-time care needs assessment."
+        }
+      ],
+      "workflowPosition": "escalated",
+      "aiAdvisor": {
+        "summary": "Thomas Clarke was awarded lower rate Attendance Allowance but is disputing the refusal of the higher rate. The key issue is whether he has night-time care needs. A GP letter confirms his diagnosis but does not specifically address night-time supervision. A district nurse care log has been requested and is pending. The case has been escalated to a senior reviewer due to the complexity of the night-time needs assessment.",
+        "recommendedActions": [
+          "Await the district nurse care log before proceeding",
+          "Review the escalation with the senior reviewer for guidance on night-time needs thresholds",
+          "Check whether the GP can provide a supplementary letter addressing night-time supervision"
+        ],
+        "confidence": "medium"
+      }
+    },
+    {
+      "id": "CR-2026-006",
+      "applicant": {
+        "name": "Sarah Jenkins",
+        "dateOfBirth": "17 April 1973",
+        "nationalInsuranceNumber": "JK 11 22 33 B",
+        "address": "91 Maple Drive, Cardiff, CF10 1AA",
+        "phone": "07700 900987",
+        "email": "sarah.jenkins@example.com",
+        "representative": null
+      },
+      "benefitType": "Personal Independence Payment",
+      "reviewGrounds": "Mandatory reconsideration — daily living and mobility",
+      "originalDecision": {
+        "date": "10 February 2026",
+        "summary": "Standard rate daily living, no mobility component. Awarded for 2 years.",
+        "decisionMaker": "David Chen"
+      },
+      "status": "Decision made",
+      "assignedTo": "caseworker-2",
+      "dateReceived": "1 March 2026",
+      "deadline": "14 April 2026",
+      "evidenceRequests": [
+        {
+          "id": "ER-007",
+          "type": "Rheumatology consultant report",
+          "criterion": "Mobility activities",
+          "requestedDate": "8 March 2026",
+          "expectedByDate": "8 April 2026",
+          "receivedDate": "2 April 2026",
+          "status": "Received"
+        }
+      ],
+      "evidence": [
+        {
+          "id": "EV-012",
+          "name": "PIP2 form",
+          "source": "Applicant",
+          "dateReceived": "1 March 2026",
+          "criterion": "All criteria",
+          "type": "Form"
+        },
+        {
+          "id": "EV-013",
+          "name": "Rheumatology consultant report",
+          "source": "Dr A. Patel, University Hospital Wales",
+          "dateReceived": "2 April 2026",
+          "criterion": "Mobility activities",
+          "type": "Medical report"
+        }
+      ],
+      "history": [
+        {
+          "date": "1 March 2026",
+          "event": "Case received",
+          "detail": "Mandatory reconsideration request received."
+        },
+        {
+          "date": "3 March 2026",
+          "event": "Case assigned",
+          "detail": "Assigned to Maria Gonzalez."
+        },
+        {
+          "date": "8 March 2026",
+          "event": "Evidence requested",
+          "detail": "Rheumatology report requested."
+        },
+        {
+          "date": "2 April 2026",
+          "event": "Evidence received",
+          "detail": "Rheumatology report received."
+        },
+        {
+          "date": "10 April 2026",
+          "event": "Decision made",
+          "detail": "Original decision revised. Standard rate mobility component added."
+        }
+      ],
+      "workflowPosition": "completed",
+      "aiAdvisor": {
+        "summary": "Sarah Jenkins requested a mandatory reconsideration of her PIP award, specifically disputing the absence of a mobility component. The rheumatology report confirmed significant joint pain and reduced walking distance. The decision was revised to add the standard rate mobility component. This case is now complete.",
+        "recommendedActions": [
+          "Send the decision notice to the applicant",
+          "Update the payment system to reflect the revised award",
+          "Close the case"
+        ],
+        "confidence": "high"
+      }
+    }
+  ],
+  "caseworkers": [
+    {
+      "id": "caseworker-1",
+      "name": "Alex Turner",
+      "role": "Caseworker",
+      "team": "team-1"
+    },
+    {
+      "id": "caseworker-2",
+      "name": "Maria Gonzalez",
+      "role": "Caseworker",
+      "team": "team-1"
+    }
+  ],
+  "teamLeaders": [
+    {
+      "id": "team-leader-1",
+      "name": "Helen Brooks",
+      "role": "Team Leader",
+      "team": "team-1"
+    }
+  ]
+}

@@ -1,0 +1,173 @@
+{
+  "workflows": [
+    {
+      "id": "mandatory-reconsideration",
+      "name": "Mandatory reconsideration",
+      "description": "Standard workflow for reviewing a benefit decision following a mandatory reconsideration request.",
+      "steps": [
+        {
+          "id": "initial-review",
+          "name": "Initial review",
+          "description": "Review the reconsideration request and original decision. Identify what is being disputed and what evidence may be needed.",
+          "actions": [
+            "Review original decision",
+            "Identify disputed criteria",
+            "Request evidence"
+          ],
+          "mandatory": true,
+          "order": 1
+        },
+        {
+          "id": "gather-evidence",
+          "name": "Gather evidence",
+          "description": "Request and collect evidence from the applicant, medical professionals, employers, or other third parties.",
+          "actions": [
+            "Send evidence request letters",
+            "Chase overdue evidence",
+            "Log received evidence"
+          ],
+          "mandatory": true,
+          "order": 2
+        },
+        {
+          "id": "review-evidence",
+          "name": "Review evidence",
+          "description": "Review all received evidence against the relevant legal criteria and descriptors.",
+          "actions": [
+            "Review evidence against criteria",
+            "Identify gaps",
+            "Request further evidence if needed"
+          ],
+          "mandatory": true,
+          "order": 3
+        },
+        {
+          "id": "make-decision",
+          "name": "Make decision",
+          "description": "Apply the legal test to the evidence and decide whether to uphold, revise, or overturn the original decision.",
+          "actions": [
+            "Record decision for each criterion",
+            "Write decision reasoning",
+            "Generate decision notice"
+          ],
+          "mandatory": true,
+          "order": 4
+        },
+        {
+          "id": "send-outcome",
+          "name": "Send outcome",
+          "description": "Send the decision notice to the applicant and any representative. Update payment systems if the decision changes the award.",
+          "actions": [
+            "Send decision notice",
+            "Notify representative",
+            "Update payment system"
+          ],
+          "mandatory": true,
+          "order": 5
+        },
+        {
+          "id": "completed",
+          "name": "Case closed",
+          "description": "The case is complete. All actions have been taken and the outcome has been communicated.",
+          "actions": [
+            "Archive case"
+          ],
+          "mandatory": true,
+          "order": 6
+        }
+      ],
+      "specialStates": [
+        {
+          "id": "escalated",
+          "name": "Escalated to senior reviewer",
+          "description": "The case has been referred to a senior reviewer for guidance on a complex issue. The case returns to the referring step once guidance is received.",
+          "canReturnTo": "any"
+        }
+      ]
+    },
+    {
+      "id": "scheduled-review",
+      "name": "Scheduled award review",
+      "description": "Workflow for reviewing an existing benefit award at its scheduled review date.",
+      "steps": [
+        {
+          "id": "initial-review",
+          "name": "Initial review",
+          "description": "Review the current award and identify what evidence is needed to assess whether the award should continue, increase, or decrease.",
+          "actions": [
+            "Review current award",
+            "Identify evidence needs",
+            "Request evidence"
+          ],
+          "mandatory": true,
+          "order": 1
+        },
+        {
+          "id": "gather-evidence",
+          "name": "Gather evidence",
+          "description": "Request and collect up-to-date evidence about the claimant's current needs.",
+          "actions": [
+            "Send evidence request letters",
+            "Chase overdue evidence",
+            "Log received evidence"
+          ],
+          "mandatory": true,
+          "order": 2
+        },
+        {
+          "id": "review-evidence",
+          "name": "Review evidence",
+          "description": "Compare current evidence with the original award to identify any changes in the claimant's circumstances.",
+          "actions": [
+            "Compare with original award",
+            "Review evidence against criteria",
+            "Identify changes"
+          ],
+          "mandatory": true,
+          "order": 3
+        },
+        {
+          "id": "make-decision",
+          "name": "Make decision",
+          "description": "Decide whether to maintain, increase, reduce, or end the award based on the current evidence.",
+          "actions": [
+            "Record decision",
+            "Write decision reasoning",
+            "Generate decision notice"
+          ],
+          "mandatory": true,
+          "order": 4
+        },
+        {
+          "id": "send-outcome",
+          "name": "Send outcome",
+          "description": "Send the review outcome to the claimant. Update payment systems if the award changes.",
+          "actions": [
+            "Send decision notice",
+            "Update payment system"
+          ],
+          "mandatory": true,
+          "order": 5
+        },
+        {
+          "id": "completed",
+          "name": "Case closed",
+          "description": "The review is complete.",
+          "actions": [
+            "Archive case"
+          ],
+          "mandatory": true,
+          "order": 6
+        }
+      ],
+      "specialStates": [
+        {
+          "id": "escalated",
+          "name": "Escalated to senior reviewer",
+          "description": "The case has been referred to a senior reviewer for guidance.",
+          "canReturnTo": "any"
+        }
+      ]
+    }
+  ]
+}

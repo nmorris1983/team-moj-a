@@ -1,0 +1,22 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Case not found" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back to my cases",
+    href: "/v1/dashboard"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">Case not found</h1>
+      <p class="govuk-body">The case reference you entered does not match any case in the system.</p>
+      <p class="govuk-body">
+        <a href="/v1/dashboard" class="govuk-link">Return to your dashboard</a>
+      </p>
+    </div>
+  </div>
+{% endblock %}

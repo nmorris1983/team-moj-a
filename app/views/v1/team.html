@@ -1,0 +1,124 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Team overview" %}
+
+{% block beforeContent %}
+  {{ govukPhaseBanner({
+    tag: { text: "Alpha" },
+    html: 'This is a prototype — your <a class="govuk-link" href="#">feedback</a> will help us improve it.'
+  }) }}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/v1/dashboard"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+      <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">Team overview</h1>
+      <p class="govuk-body-l govuk-!-margin-bottom-6">Helen Brooks — Team Leader</p>
+
+      {# Summary counts #}
+      <div class="govuk-grid-row govuk-!-margin-bottom-6">
+        <div class="govuk-grid-column-one-quarter">
+          <h2 class="govuk-heading-xl govuk-!-margin-bottom-1">{{ counts.totalCases }}</h2>
+          <p class="govuk-body">Total cases</p>
+        </div>
+        <div class="govuk-grid-column-one-quarter">
+          <h2 class="govuk-heading-xl govuk-!-margin-bottom-1">{{ counts.totalOpen }}</h2>
+          <p class="govuk-body">Open cases</p>
+        </div>
+        <div class="govuk-grid-column-one-quarter">
+          <h2 class="govuk-heading-xl govuk-!-margin-bottom-1">{{ counts.totalAtRisk }}</h2>
+          <p class="govuk-body">At risk</p>
+        </div>
+        <div class="govuk-grid-column-one-quarter">
+          <h2 class="govuk-heading-xl govuk-!-margin-bottom-1">{{ counts.totalOverdue }}</h2>
+          <p class="govuk-body">Overdue</p>
+        </div>
+      </div>
+
+      {# Workload by caseworker #}
+      <h2 class="govuk-heading-l">Workload by caseworker</h2>
+
+      <table class="govuk-table">
+        <caption class="govuk-table__caption govuk-visually-hidden">Workload by caseworker</caption>
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Caseworker</th>
+            <th scope="col" class="govuk-table__header">Total cases</th>
+            <th scope="col" class="govuk-table__header">Overdue</th>
+            <th scope="col" class="govuk-table__header">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+          {% for item in workload %}
+            <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header">{{ item.caseworker.name }}</th>
+              <td class="govuk-table__cell">{{ item.totalCases }}</td>
+              <td class="govuk-table__cell">
+                {% if item.overdue > 0 %}
+                  {{ govukTag({ text: item.overdue | string, classes: "govuk-tag--red" }) }}
+                {% else %}
+                  0
+                {% endif %}
+              </td>
+              <td class="govuk-table__cell">
+                <a href="/v1/dashboard?caseworker={{ item.caseworker.id }}" class="govuk-link">View cases</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      {# All cases #}
+      <h2 class="govuk-heading-l">All cases</h2>
+
+      <table class="govuk-table">
+        <caption class="govuk-table__caption govuk-visually-hidden">All team cases</caption>
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Reference</th>
+            <th scope="col" class="govuk-table__header">Applicant</th>
+            <th scope="col" class="govuk-table__header">Benefit type</th>
+            <th scope="col" class="govuk-table__header">Assigned to</th>
+            <th scope="col" class="govuk-table__header">Status</th>
+            <th scope="col" class="govuk-table__header">Deadline</th>
+            <th scope="col" class="govuk-table__header">Alert</th>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+          {% for case in allCases %}
+            {% set dlTag = deadlineTag(case.deadline) %}
+            {% set cw = null %}
+            {% for c in allCaseworkers %}
+              {% if c.id === case.assignedTo %}
+                {% set cw = c %}
+              {% endif %}
+            {% endfor %}
+            <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header">
+                <a href="/v1/case/{{ case.id }}" class="govuk-link">{{ case.id }}</a>
+              </th>
+              <td class="govuk-table__cell">{{ case.applicant.name }}</td>
+              <td class="govuk-table__cell">{{ case.benefitType }}</td>
+              <td class="govuk-table__cell">{{ cw.name if cw else "Unassigned" }}</td>
+              <td class="govuk-table__cell">
+                {{ govukTag({ text: case.status, classes: statusTagClass(case.status) }) }}
+              </td>
+              <td class="govuk-table__cell">{{ case.deadline }}</td>
+              <td class="govuk-table__cell">
+                {% if dlTag %}
+                  {{ govukTag({ text: dlTag.text, classes: dlTag.classes }) }}
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+{% endblock %}

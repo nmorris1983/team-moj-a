@@ -1,0 +1,9 @@
+{
+  "serviceName": "Benefit review case manager",
+  "useServiceNavigation": true,
+  "plugins": {
+    "govuk-frontend": {
+      "rebrand": true
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Prototype versions" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-xl">{{ serviceName }}</h1>
+
+      {{ govukInsetText({
+        text: "This is a prototype for user research. It is not a real service."
+      }) }}
+
+      <h2 class="govuk-heading-l">Prototype versions</h2>
+
+      <h3 class="govuk-heading-m"><a href="/v1/dashboard" class="govuk-link">Version 1</a></h3>
+      <p class="govuk-!-margin-bottom-2">
+        {{ govukTag({ text: "April 2026", classes: "govuk-tag--grey govuk-!-margin-right-1" }) }}
+        {{ govukTag({ text: "Alpha" }) }}
+      </p>
+      <p class="govuk-hint">Initial prototype. Caseworker dashboard, case detail view, team leader overview, and AI advisor integration.</p>
+
+    </div>
+  </div>
+{% endblock %}
