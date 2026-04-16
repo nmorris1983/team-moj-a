@@ -1,5 +1,7 @@
 # Requirements Document
 
+This is what the Claude Sonnet pulled out as potential requirements and considerations when I popped in the challenge.
+
 ## Introduction
 
 A web-based casework decision support tool for government caseworkers. The tool helps caseworkers quickly understand case status, surface relevant policy guidance, track workflow position, flag overdue deadlines, and identify next actions — replacing the current fragmented experience of juggling multiple systems, lengthy documents, and scattered notes.
