@@ -108,26 +108,14 @@
               {% endfor %}
             {% endif %}
 
-            {# Checklist section #}
-            {% if section.type === 'checklist' %}
-              {{ govukCheckboxes({
-                name: section.id + "-checklist",
-                fieldset: {
-                  legend: {
-                    text: "Confirm the following before submitting",
-                    classes: "govuk-fieldset__legend--s"
-                  }
-                },
-                items: section.items | map(checklistItem, section.id)
-              }) }}
-            {% endif %}
+            {# Checklist has been moved to a dedicated quality review page #}
 
           {% endfor %}
 
           <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 
           {{ govukButton({
-            text: "Preview decision notice"
+            text: "Continue to quality review"
           }) }}
 
         </form>

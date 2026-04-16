@@ -13,6 +13,7 @@ const workflows = require('./data/workflows.json')
 const decisionTemplates = require('./data/decision-templates.json')
 const correspondenceTemplates = require('./data/correspondence-templates.json')
 const precedents = require('./data/precedents.json')
+const qualityChecklists = require('./data/quality-checklists.json')
 
 // Helper: get status tag colour
 function statusTagClass (status) {
@@ -121,6 +122,13 @@ function getSimilarPrecedents (caseData) {
     .filter(s => s.score >= 2)
     .sort((a, b) => b.score - a.score)
     .map(s => s.precedent)
+}
+
+// Helper: get quality checklist for a benefit type
+function getQualityChecklist (benefitType) {
+  return qualityChecklists.checklists.find(c => benefitType.includes(c.benefitType) || c.benefitType.includes(benefitType))
+    || qualityChecklists.checklists.find(c => benefitType.toLowerCase().includes(c.benefitType.toLowerCase().split(' ')[0]))
+    || null
 }
 
 // Helper: replace template placeholders with case data
@@ -374,8 +382,25 @@ router.get('/v1/decision/:caseId', function (req, res) {
   })
 })
 
-// Record decision — preview
+// Record decision — quality review (new step between form and preview)
 router.post('/v1/decision/:caseId', function (req, res) {
+  const caseData = cases.cases.find(c => c.id === req.params.caseId)
+
+  if (!caseData) {
+    res.status(404).render('v1/case-not-found')
+    return
+  }
+
+  const checklist = getQualityChecklist(caseData.benefitType)
+
+  res.render('v1/quality-review', {
+    caseData: caseData,
+    checklist: checklist
+  })
+})
+
+// Quality review — submit to preview
+router.post('/v1/decision/:caseId/preview', function (req, res) {
   const caseData = cases.cases.find(c => c.id === req.params.caseId)
 
   if (!caseData) {

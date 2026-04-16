@@ -1,0 +1,346 @@
+{
+  "checklists": [
+    {
+      "id": "qc-pip",
+      "benefitType": "Personal Independence Payment",
+      "categories": [
+        {
+          "id": "qc-pip-evidence",
+          "name": "Evidence",
+          "guidance": "Make sure you have considered all available evidence before making your decision.",
+          "items": [
+            {
+              "id": "qc-pip-ev-1",
+              "text": "I have considered all the evidence on file, including the applicant's own account",
+              "guidance": "The applicant's PIP2 form is evidence. Do not dismiss it without explanation."
+            },
+            {
+              "id": "qc-pip-ev-2",
+              "text": "I have considered evidence from all sources, not just medical reports",
+              "guidance": "Evidence from carers, family members, support workers, and the applicant themselves can all be relevant."
+            },
+            {
+              "id": "qc-pip-ev-3",
+              "text": "Where evidence is missing or incomplete, I have recorded why I proceeded without it",
+              "guidance": "If you could not obtain evidence, explain what steps were taken and why the available evidence is sufficient."
+            },
+            {
+              "id": "qc-pip-ev-4",
+              "text": "Where evidence conflicts, I have explained which evidence I preferred and why",
+              "guidance": "If the GP report says one thing and the applicant says another, your reasoning must address the conflict."
+            }
+          ]
+        },
+        {
+          "id": "qc-pip-legal",
+          "name": "Legal test",
+          "guidance": "Make sure you have applied the correct legal test for each component.",
+          "items": [
+            {
+              "id": "qc-pip-leg-1",
+              "text": "I have applied the correct descriptors for each activity",
+              "guidance": "Check you have used the PIP descriptors from Schedule 1 of the 2013 Regulations, not ESA or other benefit descriptors."
+            },
+            {
+              "id": "qc-pip-leg-2",
+              "text": "I have considered the required period condition (3 months past, 9 months future)",
+              "guidance": "The applicant must have had the condition for at least 3 months and be likely to continue for at least 9 months."
+            },
+            {
+              "id": "qc-pip-leg-3",
+              "text": "I have considered whether the applicant can complete activities reliably, repeatedly, safely, and in a timely manner",
+              "guidance": "Even if someone can do an activity, if they cannot do it reliably, repeatedly, safely, or in a reasonable time, they may still score points."
+            },
+            {
+              "id": "qc-pip-leg-4",
+              "text": "I have considered fluctuating conditions and how they affect the applicant on the majority of days",
+              "guidance": "For conditions that vary, consider the impact over a period rather than on a single day."
+            }
+          ]
+        },
+        {
+          "id": "qc-pip-reasoning",
+          "name": "Reasoning and consistency",
+          "guidance": "Your reasoning must be clear, specific, and consistent with similar decisions.",
+          "items": [
+            {
+              "id": "qc-pip-rea-1",
+              "text": "My reasoning references specific evidence for each finding",
+              "guidance": "Do not make general statements. Say which document, which page, and what it says."
+            },
+            {
+              "id": "qc-pip-rea-2",
+              "text": "I have explained why the evidence does or does not meet each descriptor",
+              "guidance": "A finding of 'criteria not met' needs just as much reasoning as 'criteria met'."
+            },
+            {
+              "id": "qc-pip-rea-3",
+              "text": "I have checked similar past decisions for consistency",
+              "guidance": "If your decision differs from similar cases, explain why the facts of this case justify a different outcome."
+            },
+            {
+              "id": "qc-pip-rea-4",
+              "text": "My decision would be understandable to the applicant if they read it",
+              "guidance": "Write as if the applicant will read your reasoning. Avoid jargon and explain your logic."
+            }
+          ]
+        },
+        {
+          "id": "qc-pip-notice",
+          "name": "Decision notice",
+          "guidance": "The decision notice must be clear, complete, and written in plain English.",
+          "items": [
+            {
+              "id": "qc-pip-not-1",
+              "text": "The decision notice clearly states the outcome",
+              "guidance": "The applicant must be able to understand what has been decided within the first paragraph."
+            },
+            {
+              "id": "qc-pip-not-2",
+              "text": "The decision notice explains the reasoning in plain English",
+              "guidance": "Avoid legal jargon. Use short sentences. Explain what the evidence showed and how you applied the rules."
+            },
+            {
+              "id": "qc-pip-not-3",
+              "text": "The decision notice includes appeal rights and how to appeal",
+              "guidance": "The applicant must be told they can appeal to an independent tribunal and given the deadline."
+            },
+            {
+              "id": "qc-pip-not-4",
+              "text": "I have checked the notice for factual errors (names, dates, amounts)",
+              "guidance": "Check the applicant's name, the decision date, the original decision date, and any award amounts."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "qc-esa",
+      "benefitType": "Employment and Support Allowance",
+      "categories": [
+        {
+          "id": "qc-esa-evidence",
+          "name": "Evidence",
+          "guidance": "Make sure you have considered all available evidence before making your decision.",
+          "items": [
+            {
+              "id": "qc-esa-ev-1",
+              "text": "I have considered all the evidence on file, including the applicant's ESA50 questionnaire",
+              "guidance": "The ESA50 is the applicant's own account of their limitations. It must be considered even if medical evidence is available."
+            },
+            {
+              "id": "qc-esa-ev-2",
+              "text": "I have considered evidence of the applicant's mental health as well as physical health",
+              "guidance": "Many ESA cases involve both physical and mental health conditions. Make sure you have assessed both."
+            },
+            {
+              "id": "qc-esa-ev-3",
+              "text": "Where evidence is missing, I have recorded why I proceeded without it",
+              "guidance": "If a specialist report was not available, explain what steps were taken to obtain it."
+            },
+            {
+              "id": "qc-esa-ev-4",
+              "text": "I have considered the applicant's treatment and whether it affects their capability",
+              "guidance": "Side effects of medication and the impact of treatment itself can affect work capability."
+            }
+          ]
+        },
+        {
+          "id": "qc-esa-legal",
+          "name": "Legal test",
+          "guidance": "Make sure you have applied the correct work capability assessment descriptors.",
+          "items": [
+            {
+              "id": "qc-esa-leg-1",
+              "text": "I have scored each relevant descriptor and recorded the points",
+              "guidance": "The threshold is 15 points. Record the score for each descriptor, not just the total."
+            },
+            {
+              "id": "qc-esa-leg-2",
+              "text": "I have considered the support group descriptors separately from the LCW descriptors",
+              "guidance": "Even if someone scores 15+ points for LCW, you must also consider whether they meet a support group descriptor."
+            },
+            {
+              "id": "qc-esa-leg-3",
+              "text": "I have considered Regulation 29 (exceptional circumstances for LCW)",
+              "guidance": "If the applicant does not score 15 points but there would be a substantial risk to their health if found fit for work, Regulation 29 may apply."
+            },
+            {
+              "id": "qc-esa-leg-4",
+              "text": "I have considered Regulation 35 (exceptional circumstances for support group)",
+              "guidance": "If the applicant does not meet a Schedule 3 descriptor but there would be a substantial risk if required to undertake work-related activity, Regulation 35 may apply."
+            }
+          ]
+        },
+        {
+          "id": "qc-esa-reasoning",
+          "name": "Reasoning and consistency",
+          "guidance": "Your reasoning must be clear, specific, and consistent with similar decisions.",
+          "items": [
+            {
+              "id": "qc-esa-rea-1",
+              "text": "My reasoning references specific evidence for each descriptor scored",
+              "guidance": "For each descriptor where points are awarded or not awarded, cite the evidence."
+            },
+            {
+              "id": "qc-esa-rea-2",
+              "text": "I have explained the points score clearly",
+              "guidance": "Show which descriptors scored points, how many, and why."
+            },
+            {
+              "id": "qc-esa-rea-3",
+              "text": "I have checked similar past decisions for consistency",
+              "guidance": "If your decision differs from similar cases, explain why."
+            },
+            {
+              "id": "qc-esa-rea-4",
+              "text": "My decision would be understandable to the applicant if they read it",
+              "guidance": "Write clearly. Explain what the evidence showed and how you applied the rules."
+            }
+          ]
+        },
+        {
+          "id": "qc-esa-notice",
+          "name": "Decision notice",
+          "guidance": "The decision notice must be clear, complete, and written in plain English.",
+          "items": [
+            {
+              "id": "qc-esa-not-1",
+              "text": "The decision notice clearly states the outcome and which group the applicant is placed in",
+              "guidance": "State clearly: fit for work, work-related activity group, or support group."
+            },
+            {
+              "id": "qc-esa-not-2",
+              "text": "The decision notice explains the reasoning in plain English",
+              "guidance": "Avoid jargon. Explain the points score and what it means."
+            },
+            {
+              "id": "qc-esa-not-3",
+              "text": "The decision notice includes appeal rights",
+              "guidance": "The applicant must be told they can appeal and given the deadline."
+            },
+            {
+              "id": "qc-esa-not-4",
+              "text": "I have checked the notice for factual errors",
+              "guidance": "Check names, dates, and the points score."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "qc-aa",
+      "benefitType": "Attendance Allowance",
+      "categories": [
+        {
+          "id": "qc-aa-evidence",
+          "name": "Evidence",
+          "guidance": "Make sure you have considered all available evidence about the applicant's care needs.",
+          "items": [
+            {
+              "id": "qc-aa-ev-1",
+              "text": "I have considered all the evidence on file, including the applicant's AA1 form",
+              "guidance": "The AA1 form is the applicant's own account. It must be considered."
+            },
+            {
+              "id": "qc-aa-ev-2",
+              "text": "I have considered evidence from professional carers, district nurses, or care agencies",
+              "guidance": "Professional care evidence is particularly important for night-time needs."
+            },
+            {
+              "id": "qc-aa-ev-3",
+              "text": "I have considered the frequency and duration of care needs, not just whether care is needed",
+              "guidance": "The legal test requires 'frequent' or 'prolonged' attention. Occasional help may not meet the threshold."
+            },
+            {
+              "id": "qc-aa-ev-4",
+              "text": "Where evidence is missing, I have recorded why I proceeded without it",
+              "guidance": "If a care log was not available, explain what steps were taken."
+            }
+          ]
+        },
+        {
+          "id": "qc-aa-legal",
+          "name": "Legal test",
+          "guidance": "Make sure you have applied the correct day and night conditions.",
+          "items": [
+            {
+              "id": "qc-aa-leg-1",
+              "text": "I have assessed the day condition and the night condition separately",
+              "guidance": "Lower rate requires meeting either condition. Higher rate requires meeting both."
+            },
+            {
+              "id": "qc-aa-leg-2",
+              "text": "For the day condition, I have considered both 'frequent attention' and 'continual supervision'",
+              "guidance": "The applicant only needs to meet one of these two tests for the day condition."
+            },
+            {
+              "id": "qc-aa-leg-3",
+              "text": "For the night condition, I have considered both 'prolonged or repeated attention' and 'watching over'",
+              "guidance": "The applicant only needs to meet one of these two tests for the night condition."
+            },
+            {
+              "id": "qc-aa-leg-4",
+              "text": "I have considered the 6-month qualifying period",
+              "guidance": "The applicant must have needed care for at least 6 months, or be terminally ill."
+            }
+          ]
+        },
+        {
+          "id": "qc-aa-reasoning",
+          "name": "Reasoning and consistency",
+          "guidance": "Your reasoning must be clear and specific.",
+          "items": [
+            {
+              "id": "qc-aa-rea-1",
+              "text": "My reasoning references specific evidence for each condition assessed",
+              "guidance": "Cite the care log, GP letter, or other evidence for each finding."
+            },
+            {
+              "id": "qc-aa-rea-2",
+              "text": "I have explained why the evidence does or does not meet the day and night conditions",
+              "guidance": "Be specific about frequency, duration, and type of care."
+            },
+            {
+              "id": "qc-aa-rea-3",
+              "text": "I have checked similar past decisions for consistency",
+              "guidance": "If your decision differs from similar cases, explain why."
+            },
+            {
+              "id": "qc-aa-rea-4",
+              "text": "My decision would be understandable to the applicant if they read it",
+              "guidance": "Write clearly. Explain what the evidence showed."
+            }
+          ]
+        },
+        {
+          "id": "qc-aa-notice",
+          "name": "Decision notice",
+          "guidance": "The decision notice must be clear, complete, and written in plain English.",
+          "items": [
+            {
+              "id": "qc-aa-not-1",
+              "text": "The decision notice clearly states the outcome and the rate awarded",
+              "guidance": "State clearly: lower rate, higher rate, or no award."
+            },
+            {
+              "id": "qc-aa-not-2",
+              "text": "The decision notice explains which conditions were met and which were not",
+              "guidance": "Explain the day condition and night condition findings separately."
+            },
+            {
+              "id": "qc-aa-not-3",
+              "text": "The decision notice includes appeal rights",
+              "guidance": "The applicant must be told they can appeal and given the deadline."
+            },
+            {
+              "id": "qc-aa-not-4",
+              "text": "I have checked the notice for factual errors",
+              "guidance": "Check names, dates, and award details."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

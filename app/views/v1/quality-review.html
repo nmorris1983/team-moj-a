@@ -1,0 +1,123 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Quality review — " + caseData.id %}
+
+{% block beforeContent %}
+  {{ govukPhaseBanner({
+    tag: { text: "Alpha" },
+    html: 'This is a prototype — your <a class="govuk-link" href="#">feedback</a> will help us improve it.'
+  }) }}
+  {{ govukBackLink({
+    text: "Back to decision",
+    href: "/v1/decision/" + caseData.id
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <span class="govuk-caption-l">{{ caseData.id }} — {{ caseData.applicant.name }}</span>
+      <h1 class="govuk-heading-l">Quality review</h1>
+
+      <p class="govuk-body">
+        Before previewing your decision notice, confirm that your decision meets the quality standards below.
+        Select each item you have completed. Expand the guidance if you need help.
+      </p>
+
+      {% if not checklist %}
+        {{ govukInsetText({
+          text: "No quality checklist is available for this benefit type. Proceed to preview your decision."
+        }) }}
+        <form method="post" action="/v1/decision/{{ caseData.id }}/preview">
+          {{ govukButton({
+            text: "Continue to preview"
+          }) }}
+        </form>
+      {% else %}
+
+        <form method="post" action="/v1/decision/{{ caseData.id }}/preview">
+
+          {% for category in checklist.categories %}
+
+            <h2 class="govuk-heading-m govuk-!-margin-top-8">{{ category.name }}</h2>
+            <p class="govuk-body-s govuk-hint">{{ category.guidance }}</p>
+
+            {% set checkboxItems = [] %}
+            {% for item in category.items %}
+              {% set checkboxItems = (checkboxItems.push({
+                value: item.id,
+                text: item.text,
+                hint: { text: item.guidance }
+              }), checkboxItems) %}
+            {% endfor %}
+
+            {{ govukCheckboxes({
+              name: category.id,
+              fieldset: {
+                legend: {
+                  text: category.name + " checks",
+                  classes: "govuk-visually-hidden"
+                }
+              },
+              items: checkboxItems
+            }) }}
+
+          {% endfor %}
+
+          <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+          {{ govukWarningText({
+            text: "You should complete all checklist items before submitting your decision. Incomplete items may be flagged in quality assurance.",
+            iconFallbackText: "Warning"
+          }) }}
+
+          <div class="govuk-button-group">
+            {{ govukButton({
+              text: "Continue to preview"
+            }) }}
+            <a href="/v1/decision/{{ caseData.id }}" class="govuk-link">Go back and edit decision</a>
+          </div>
+
+        </form>
+
+      {% endif %}
+
+    </div>
+
+    {# Sidebar: summary of what was recorded #}
+    <div class="govuk-grid-column-one-third">
+
+      <h2 class="govuk-heading-m">Your decision</h2>
+
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: { text: "Case" },
+            value: { text: caseData.id }
+          },
+          {
+            key: { text: "Applicant" },
+            value: { text: caseData.applicant.name }
+          },
+          {
+            key: { text: "Benefit type" },
+            value: { text: caseData.benefitType }
+          },
+          {
+            key: { text: "Status" },
+            value: { html: govukTag({ text: caseData.status, classes: statusTagClass(caseData.status) }) }
+          }
+        ]
+      }) }}
+
+      <h2 class="govuk-heading-m">What happens next</h2>
+      <ol class="govuk-list govuk-list--number govuk-body-s">
+        <li><strong>Quality review</strong> — you are here</li>
+        <li>Preview decision notice</li>
+        <li>Confirm and send</li>
+      </ol>
+
+    </div>
+  </div>
+{% endblock %}

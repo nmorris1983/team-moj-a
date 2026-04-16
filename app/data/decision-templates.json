@@ -89,20 +89,6 @@
               "type": "textarea"
             }
           ]
-        },
-        {
-          "id": "dt-pip-quality",
-          "title": "Quality checklist",
-          "type": "checklist",
-          "items": [
-            "I have considered all the evidence on file",
-            "I have applied the correct legal test for each criterion",
-            "I have recorded a finding for each relevant descriptor",
-            "My reasoning references specific evidence",
-            "I have considered the applicant's own account",
-            "The decision is consistent with similar cases",
-            "The decision notice is written in plain English"
-          ]
         }
       ],
       "noticeTemplate": {
@@ -212,20 +198,6 @@
               "type": "textarea"
             }
           ]
-        },
-        {
-          "id": "dt-esa-quality",
-          "title": "Quality checklist",
-          "type": "checklist",
-          "items": [
-            "I have considered all the evidence on file",
-            "I have applied the correct legal test for each descriptor",
-            "I have recorded a points score where applicable",
-            "My reasoning references specific evidence",
-            "I have considered the applicant's own account",
-            "The decision is consistent with similar cases",
-            "The decision notice is written in plain English"
-          ]
         }
       ],
       "noticeTemplate": {
@@ -316,19 +288,6 @@
               "hint": "Explain what evidence you relied on.",
               "type": "textarea"
             }
-          ]
-        },
-        {
-          "id": "dt-aa-quality",
-          "title": "Quality checklist",
-          "type": "checklist",
-          "items": [
-            "I have considered all the evidence on file",
-            "I have applied the correct legal test for day and night conditions",
-            "My reasoning references specific evidence",
-            "I have considered the applicant's own account",
-            "The decision is consistent with similar cases",
-            "The decision notice is written in plain English"
           ]
         }
       ],
