@@ -1,0 +1,182 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Record decision — " + caseData.id %}
+
+{% block beforeContent %}
+  {{ govukPhaseBanner({
+    tag: { text: "Alpha" },
+    html: 'This is a prototype — your <a class="govuk-link" href="#">feedback</a> will help us improve it.'
+  }) }}
+  {{ govukBackLink({
+    text: "Back to case",
+    href: "/v1/case/" + caseData.id
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <span class="govuk-caption-l">{{ caseData.id }} — {{ caseData.applicant.name }}</span>
+      <h1 class="govuk-heading-l">Record decision</h1>
+
+      <p class="govuk-body">
+        {{ caseData.benefitType }} — {{ caseData.reviewGrounds }}
+      </p>
+
+      {% if not template %}
+        {{ govukInsetText({
+          text: "No decision template is available for this benefit type. Record your decision manually."
+        }) }}
+      {% else %}
+
+        <form method="post" action="/v1/decision/{{ caseData.id }}">
+
+          {% for section in template.sections %}
+
+            {# Section heading #}
+            <h2 class="govuk-heading-m govuk-!-margin-top-8">{{ section.title }}</h2>
+
+            {# Criterion sections show descriptors #}
+            {% if section.type === 'criterion' and section.descriptors %}
+              <details class="govuk-details">
+                <summary class="govuk-details__summary">
+                  <span class="govuk-details__summary-text">View descriptors for {{ section.title | lower }}</span>
+                </summary>
+                <div class="govuk-details__text">
+                  <ul class="govuk-list govuk-list--bullet">
+                    {% for descriptor in section.descriptors %}
+                      <li>{{ descriptor }}</li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </details>
+
+              {# Show relevant evidence for this criterion #}
+              {% set criterionName = section.title %}
+              {% set relevantEvidence = [] %}
+              {% for ev in caseData.evidence %}
+                {% if ev.criterion === criterionName or ev.criterion === 'All criteria' %}
+                  {% set relevantEvidence = (relevantEvidence.push(ev), relevantEvidence) %}
+                {% endif %}
+              {% endfor %}
+
+              {% if relevantEvidence.length > 0 %}
+                <details class="govuk-details">
+                  <summary class="govuk-details__summary">
+                    <span class="govuk-details__summary-text">View evidence for {{ section.title | lower }} ({{ relevantEvidence.length }})</span>
+                  </summary>
+                  <div class="govuk-details__text">
+                    <ul class="govuk-list govuk-list--bullet">
+                      {% for ev in relevantEvidence %}
+                        <li>{{ ev.name }} — {{ ev.source }} ({{ ev.dateReceived }})</li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </details>
+              {% endif %}
+            {% endif %}
+
+            {# Render fields #}
+            {% if section.type !== 'checklist' %}
+              {% for field in section.fields %}
+                {% if field.type === 'radios' %}
+                  {{ govukRadios({
+                    name: section.id + "-" + field.id,
+                    fieldset: {
+                      legend: {
+                        text: field.label,
+                        classes: "govuk-fieldset__legend--s"
+                      }
+                    },
+                    hint: { text: field.hint } if field.hint,
+                    items: field.options | map(radioItem, section.id + "-" + field.id)
+                  }) }}
+                {% elif field.type === 'textarea' %}
+                  {{ govukTextarea({
+                    name: section.id + "-" + field.id,
+                    id: section.id + "-" + field.id,
+                    label: {
+                      text: field.label,
+                      classes: "govuk-label--s"
+                    },
+                    hint: { text: field.hint } if field.hint,
+                    rows: 6,
+                    value: data[section.id + "-" + field.id] or ""
+                  }) }}
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+
+            {# Checklist section #}
+            {% if section.type === 'checklist' %}
+              {{ govukCheckboxes({
+                name: section.id + "-checklist",
+                fieldset: {
+                  legend: {
+                    text: "Confirm the following before submitting",
+                    classes: "govuk-fieldset__legend--s"
+                  }
+                },
+                items: section.items | map(checklistItem, section.id)
+              }) }}
+            {% endif %}
+
+          {% endfor %}
+
+          <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+          {{ govukButton({
+            text: "Preview decision notice"
+          }) }}
+
+        </form>
+
+      {% endif %}
+
+    </div>
+
+    {# Sidebar: AI advisor and evidence summary #}
+    <div class="govuk-grid-column-one-third">
+
+      {% if caseData.aiAdvisor %}
+        <h2 class="govuk-heading-m">AI advisor</h2>
+        {{ govukInsetText({
+          html: '<p class="govuk-body-s"><strong>AI-generated</strong> ' +
+            govukTag({ text: caseData.aiAdvisor.confidence + " confidence", classes: "govuk-tag--blue" }) +
+            '</p><p class="govuk-body-s">' + caseData.aiAdvisor.summary + '</p>'
+        }) }}
+      {% endif %}
+
+      <h2 class="govuk-heading-m">Evidence on file</h2>
+      {% if caseData.evidence.length > 0 %}
+        <ul class="govuk-list govuk-list--bullet govuk-body-s">
+          {% for ev in caseData.evidence %}
+            <li>{{ ev.name }}<br>{{ ev.source }} — {{ ev.dateReceived }}</li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="govuk-body-s">No evidence on file.</p>
+      {% endif %}
+
+      {% if caseData.evidenceRequests.length > 0 %}
+        <h2 class="govuk-heading-m">Outstanding requests</h2>
+        <ul class="govuk-list govuk-list--bullet govuk-body-s">
+          {% for er in caseData.evidenceRequests %}
+            {% if er.status !== 'Received' %}
+              <li>
+                {{ er.type }}
+                {% if er.status === 'Overdue' %}
+                  {{ govukTag({ text: "Overdue", classes: "govuk-tag--red" }) }}
+                {% else %}
+                  {{ govukTag({ text: "Pending", classes: "govuk-tag--yellow" }) }}
+                {% endif %}
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,142 @@
+{
+  "templates": [
+    {
+      "id": "letter-evidence-request",
+      "name": "Evidence request letter",
+      "type": "outbound",
+      "description": "Request evidence from a third party such as a GP, consultant, or employer.",
+      "applicableTo": "all",
+      "fields": [
+        {
+          "id": "recipient-name",
+          "label": "Recipient name",
+          "hint": "The name of the person or organisation you are writing to.",
+          "type": "text"
+        },
+        {
+          "id": "recipient-address",
+          "label": "Recipient address",
+          "type": "textarea"
+        },
+        {
+          "id": "evidence-type",
+          "label": "What evidence are you requesting?",
+          "hint": "For example, 'a medical report covering the applicant's mobility limitations'.",
+          "type": "textarea"
+        },
+        {
+          "id": "response-deadline",
+          "label": "Please respond by",
+          "hint": "For example, '15 May 2026'.",
+          "type": "text"
+        }
+      ],
+      "body": "Dear {{recipient-name}},\n\nRe: {{applicantName}} — {{benefitType}} review (reference {{caseId}})\n\nWe are reviewing a decision about {{applicantName}}'s {{benefitType}}. To help us make a fair decision, we need the following evidence:\n\n{{evidence-type}}\n\nPlease send this to us by {{response-deadline}}. If you cannot provide this information by that date, please contact us to let us know.\n\nYou can send your response to:\n\nBenefit Review Team\nDepartment for Work and Pensions\nPO Box 1234\nLondon\nWC1A 1AA\n\nOr by email to: benefit.reviews@dwp.example.gov.uk\n\nThank you for your help.\n\nYours sincerely,\n\n{{caseworkerName}}\nBenefit Review Team\nDepartment for Work and Pensions"
+    },
+    {
+      "id": "letter-evidence-chase",
+      "name": "Evidence chasing letter",
+      "type": "outbound",
+      "description": "Follow up on an evidence request that has not been returned by the expected date.",
+      "applicableTo": "all",
+      "fields": [
+        {
+          "id": "recipient-name",
+          "label": "Recipient name",
+          "type": "text"
+        },
+        {
+          "id": "recipient-address",
+          "label": "Recipient address",
+          "type": "textarea"
+        },
+        {
+          "id": "original-request-date",
+          "label": "Date of original request",
+          "hint": "For example, '10 February 2026'.",
+          "type": "text"
+        },
+        {
+          "id": "evidence-type",
+          "label": "What evidence was requested?",
+          "type": "textarea"
+        },
+        {
+          "id": "new-deadline",
+          "label": "New deadline",
+          "hint": "For example, '30 April 2026'.",
+          "type": "text"
+        }
+      ],
+      "body": "Dear {{recipient-name}},\n\nRe: {{applicantName}} — {{benefitType}} review (reference {{caseId}})\n\nWe wrote to you on {{original-request-date}} asking for the following evidence:\n\n{{evidence-type}}\n\nWe have not yet received a response. This information is important to help us make a fair decision about {{applicantName}}'s benefit.\n\nPlease send this to us by {{new-deadline}}. If you are unable to provide this information, please contact us to discuss alternatives.\n\nIf we do not receive a response, we will need to make a decision based on the evidence we already have.\n\nYours sincerely,\n\n{{caseworkerName}}\nBenefit Review Team\nDepartment for Work and Pensions"
+    },
+    {
+      "id": "letter-applicant-update",
+      "name": "Applicant update letter",
+      "type": "outbound",
+      "description": "Update the applicant on the progress of their case.",
+      "applicableTo": "all",
+      "fields": [
+        {
+          "id": "update-detail",
+          "label": "What update do you want to give?",
+          "hint": "For example, 'We are still waiting for a medical report from your GP.'",
+          "type": "textarea"
+        },
+        {
+          "id": "expected-next-step",
+          "label": "What happens next?",
+          "hint": "For example, 'We expect to make a decision within 4 weeks.'",
+          "type": "textarea"
+        }
+      ],
+      "body": "Dear {{applicantName}},\n\nRe: Your {{benefitType}} review (reference {{caseId}})\n\nWe are writing to update you on your case.\n\n{{update-detail}}\n\n{{expected-next-step}}\n\nIf you have any questions, you can contact us at:\n\nPhone: 0800 123 4567\nEmail: benefit.reviews@dwp.example.gov.uk\n\nYours sincerely,\n\n{{caseworkerName}}\nBenefit Review Team\nDepartment for Work and Pensions"
+    },
+    {
+      "id": "letter-decision-notice",
+      "name": "Decision notice",
+      "type": "outbound",
+      "description": "The formal decision notice sent to the applicant after a decision has been made. This is auto-generated from the decision template.",
+      "applicableTo": "all",
+      "fields": [
+        {
+          "id": "decision-outcome",
+          "label": "Decision outcome",
+          "hint": "This is populated from the decision template.",
+          "type": "text",
+          "prefill": "decision"
+        },
+        {
+          "id": "decision-reasoning",
+          "label": "Decision reasoning",
+          "hint": "This is populated from the decision template.",
+          "type": "textarea",
+          "prefill": "decision"
+        },
+        {
+          "id": "new-award-details",
+          "label": "New award details (if revised)",
+          "hint": "For example, 'Standard rate mobility component, £28.70 per week, from 16 April 2026.'",
+          "type": "textarea"
+        }
+      ],
+      "body": "Dear {{applicantName}},\n\nRe: Your {{benefitType}} review (reference {{caseId}})\n\nDecision date: {{decisionDate}}\n\nWe have looked at your request to reconsider the decision about your {{benefitType}} made on {{originalDecisionDate}}.\n\nOur decision\n\n{{decision-outcome}}\n\n{{new-award-details}}\n\nWhy we made this decision\n\n{{decision-reasoning}}\n\nYour right to appeal\n\nIf you disagree with this decision, you can appeal to an independent tribunal. You must do this within one month of the date of this letter.\n\nTo appeal, you need to complete form SSCS1, which you can get from your local Citizens Advice or download from www.gov.uk.\n\nYours sincerely,\n\n{{caseworkerName}}\nDecision Maker\nDepartment for Work and Pensions"
+    },
+    {
+      "id": "letter-representative-notification",
+      "name": "Representative notification",
+      "type": "outbound",
+      "description": "Notify the applicant's representative of a decision or case update.",
+      "applicableTo": "has-representative",
+      "fields": [
+        {
+          "id": "notification-detail",
+          "label": "What are you notifying the representative about?",
+          "hint": "For example, 'A decision has been made on your client's case.'",
+          "type": "textarea"
+        }
+      ],
+      "body": "Dear {{representativeName}},\n\nRe: {{applicantName}} — {{benefitType}} review (reference {{caseId}})\nYour reference: {{representativeReference}}\n\n{{notification-detail}}\n\nA copy of the decision notice has been sent to your client.\n\nIf you have any questions, you can contact us at:\n\nPhone: 0800 123 4567\nEmail: benefit.reviews@dwp.example.gov.uk\n\nYours sincerely,\n\n{{caseworkerName}}\nBenefit Review Team\nDepartment for Work and Pensions"
+    }
+  ]
+}

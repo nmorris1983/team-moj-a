@@ -10,6 +10,8 @@ const router = govukPrototypeKit.requests.setupRouter()
 const cases = require('./data/cases.json')
 const policies = require('./data/policies.json')
 const workflows = require('./data/workflows.json')
+const decisionTemplates = require('./data/decision-templates.json')
+const correspondenceTemplates = require('./data/correspondence-templates.json')
 
 // Helper: get status tag colour
 function statusTagClass (status) {
@@ -51,9 +53,8 @@ function parseGovDate (str) {
 }
 
 // Helper: get workflow for a case
-function getWorkflow (workflowPosition, benefitType) {
-  // Determine workflow type from benefit type or default to mandatory reconsideration
-  const workflowId = benefitType && benefitType.includes('review')
+function getWorkflow (workflowPosition, reviewGrounds) {
+  const workflowId = reviewGrounds && reviewGrounds.toLowerCase().includes('review')
     ? 'scheduled-review'
     : 'mandatory-reconsideration'
 
@@ -68,6 +69,13 @@ function getMatchedPolicy (benefitType) {
     || null
 }
 
+// Helper: get matched decision template for a case
+function getDecisionTemplate (benefitType) {
+  return decisionTemplates.templates.find(t => benefitType.includes(t.benefitType) || t.benefitType.includes(benefitType))
+    || decisionTemplates.templates.find(t => benefitType.toLowerCase().includes(t.benefitType.toLowerCase().split(' ')[0]))
+    || null
+}
+
 // Helper: count evidence status for a case
 function evidenceStatus (caseData) {
   const total = caseData.evidenceRequests.length
@@ -75,6 +83,43 @@ function evidenceStatus (caseData) {
   const overdue = caseData.evidenceRequests.filter(e => e.status === 'Overdue').length
   const pending = caseData.evidenceRequests.filter(e => e.status === 'Pending').length
   return { total, received, overdue, pending }
+}
+
+// Helper: replace template placeholders with case data
+function populateLetter (bodyTemplate, caseData, caseworker, formData) {
+  let text = bodyTemplate
+
+  // Case data replacements
+  text = text.replace(/\{\{applicantName\}\}/g, caseData.applicant.name)
+  text = text.replace(/\{\{benefitType\}\}/g, caseData.benefitType)
+  text = text.replace(/\{\{caseId\}\}/g, caseData.id)
+  text = text.replace(/\{\{originalDecisionDate\}\}/g, caseData.originalDecision.date)
+  text = text.replace(/\{\{caseworkerName\}\}/g, caseworker ? caseworker.name : 'Caseworker')
+  text = text.replace(/\{\{decisionDate\}\}/g, formatTodayDate())
+
+  // Representative replacements
+  if (caseData.applicant.representative) {
+    text = text.replace(/\{\{representativeName\}\}/g, caseData.applicant.representative.name)
+    text = text.replace(/\{\{representativeReference\}\}/g, caseData.applicant.representative.reference)
+  }
+
+  // Form field replacements
+  if (formData) {
+    Object.keys(formData).forEach(function (key) {
+      const placeholder = '{{' + key + '}}'
+      text = text.replace(new RegExp(placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), formData[key] || '')
+    })
+  }
+
+  return text
+}
+
+// Helper: format today's date in GOV.UK style
+function formatTodayDate () {
+  const months = ['January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December']
+  const d = new Date()
+  return d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear()
 }
 
 // Make helpers available to all templates
@@ -166,6 +211,9 @@ router.get('/v1/case/:caseId', function (req, res) {
   // Handle escalated state
   const isEscalated = caseData.workflowPosition === 'escalated'
 
+  // Check if decision template exists for action buttons
+  const hasDecisionTemplate = !!getDecisionTemplate(caseData.benefitType)
+
   res.render('v1/case', {
     caseData: caseData,
     caseworker: caseworker,
@@ -173,7 +221,8 @@ router.get('/v1/case/:caseId', function (req, res) {
     workflow: workflow,
     workflowSteps: workflowSteps,
     isEscalated: isEscalated,
-    evStatus: evStatus
+    evStatus: evStatus,
+    hasDecisionTemplate: hasDecisionTemplate
   })
 })
 
@@ -217,5 +266,197 @@ router.get('/v1/team', function (req, res) {
       totalAtRisk: totalAtRisk,
       totalCases: allCases.length
     }
+  })
+})
+
+// ============================================================
+// Decision routes
+// ============================================================
+
+// Record decision — form
+router.get('/v1/decision/:caseId', function (req, res) {
+  const caseData = cases.cases.find(c => c.id === req.params.caseId)
+
+  if (!caseData) {
+    res.status(404).render('v1/case-not-found')
+    return
+  }
+
+  const template = getDecisionTemplate(caseData.benefitType)
+
+  res.render('v1/decision', {
+    caseData: caseData,
+    template: template
+  })
+})
+
+// Record decision — preview
+router.post('/v1/decision/:caseId', function (req, res) {
+  const caseData = cases.cases.find(c => c.id === req.params.caseId)
+
+  if (!caseData) {
+    res.status(404).render('v1/case-not-found')
+    return
+  }
+
+  const template = getDecisionTemplate(caseData.benefitType)
+  const caseworker = cases.caseworkers.find(c => c.id === caseData.assignedTo)
+
+  // Build decision notice text from template and form data
+  const notice = template.noticeTemplate
+  let noticeText = notice.opening + '\n\n'
+
+  // Determine outcome from form data
+  const outcomeSectionId = template.sections.find(s => s.type === 'decision').id
+  const outcomeFieldId = outcomeSectionId + '-outcome'
+  const outcomeValue = req.session.data[outcomeFieldId] || 'Decision not recorded'
+
+  if (outcomeValue.toLowerCase().includes('uphold')) {
+    noticeText += notice.outcomeUphold + '\n\n'
+  } else {
+    noticeText += notice.outcomeRevise + '\n\n'
+  }
+
+  noticeText += notice.reasoningIntro + '\n\n'
+
+  // Add reasoning from each criterion section
+  template.sections.forEach(function (section) {
+    if (section.type === 'criterion') {
+      section.fields.forEach(function (field) {
+        const fieldKey = section.id + '-' + field.id
+        const value = req.session.data[fieldKey]
+        if (value && field.type === 'textarea') {
+          noticeText += value + '\n\n'
+        }
+      })
+    }
+  })
+
+  noticeText += notice.appealRights + '\n\n'
+  noticeText += notice.closing
+
+  // Replace placeholders
+  noticeText = noticeText.replace(/\{\{applicantName\}\}/g, caseData.applicant.name)
+  noticeText = noticeText.replace(/\{\{originalDecisionDate\}\}/g, caseData.originalDecision.date)
+  noticeText = noticeText.replace(/\{\{caseworkerName\}\}/g, caseworker ? caseworker.name : 'Caseworker')
+
+  res.render('v1/decision-preview', {
+    caseData: caseData,
+    template: template,
+    noticeText: noticeText
+  })
+})
+
+// Confirm decision
+router.post('/v1/decision/:caseId/confirm', function (req, res) {
+  const caseData = cases.cases.find(c => c.id === req.params.caseId)
+
+  if (!caseData) {
+    res.status(404).render('v1/case-not-found')
+    return
+  }
+
+  const confirmDecision = req.session.data['confirm-decision']
+
+  if (confirmDecision === 'no') {
+    res.redirect('/v1/decision/' + caseData.id)
+    return
+  }
+
+  res.render('v1/decision-confirmed', {
+    caseData: caseData
+  })
+})
+
+// ============================================================
+// Correspondence routes
+// ============================================================
+
+// Correspondence — template list
+router.get('/v1/correspondence/:caseId', function (req, res) {
+  const caseData = cases.cases.find(c => c.id === req.params.caseId)
+
+  if (!caseData) {
+    res.status(404).render('v1/case-not-found')
+    return
+  }
+
+  res.render('v1/correspondence', {
+    caseData: caseData,
+    templates: correspondenceTemplates.templates
+  })
+})
+
+// Correspondence — compose
+router.get('/v1/correspondence/:caseId/:templateId', function (req, res) {
+  const caseData = cases.cases.find(c => c.id === req.params.caseId)
+  const template = correspondenceTemplates.templates.find(t => t.id === req.params.templateId)
+
+  if (!caseData || !template) {
+    res.status(404).render('v1/case-not-found')
+    return
+  }
+
+  const caseworker = cases.caseworkers.find(c => c.id === caseData.assignedTo)
+
+  // Pre-fill known values
+  const prefills = {}
+  if (template.id === 'letter-evidence-chase') {
+    // Pre-fill with overdue evidence request details
+    const overdueRequest = caseData.evidenceRequests.find(e => e.status === 'Overdue')
+    if (overdueRequest) {
+      prefills['evidence-type'] = overdueRequest.type
+      prefills['original-request-date'] = overdueRequest.requestedDate
+    }
+  }
+
+  res.render('v1/correspondence-compose', {
+    caseData: caseData,
+    template: template,
+    caseworker: caseworker,
+    prefills: prefills
+  })
+})
+
+// Correspondence — preview
+router.post('/v1/correspondence/:caseId/:templateId', function (req, res) {
+  const caseData = cases.cases.find(c => c.id === req.params.caseId)
+  const template = correspondenceTemplates.templates.find(t => t.id === req.params.templateId)
+
+  if (!caseData || !template) {
+    res.status(404).render('v1/case-not-found')
+    return
+  }
+
+  const caseworker = cases.caseworkers.find(c => c.id === caseData.assignedTo)
+  const letterText = populateLetter(template.body, caseData, caseworker, req.session.data)
+
+  res.render('v1/correspondence-preview', {
+    caseData: caseData,
+    template: template,
+    letterText: letterText
+  })
+})
+
+// Correspondence — send
+router.post('/v1/correspondence/:caseId/:templateId/send', function (req, res) {
+  const caseData = cases.cases.find(c => c.id === req.params.caseId)
+  const template = correspondenceTemplates.templates.find(t => t.id === req.params.templateId)
+
+  if (!caseData || !template) {
+    res.status(404).render('v1/case-not-found')
+    return
+  }
+
+  const confirmSend = req.session.data['confirm-send']
+
+  if (confirmSend === 'no') {
+    res.redirect('/v1/correspondence/' + caseData.id + '/' + template.id)
+    return
+  }
+
+  res.render('v1/correspondence-sent', {
+    caseData: caseData,
+    template: template
   })
 })

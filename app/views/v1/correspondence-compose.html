@@ -1,0 +1,105 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = template.name + " — " + caseData.id %}
+
+{% block beforeContent %}
+  {{ govukPhaseBanner({
+    tag: { text: "Alpha" },
+    html: 'This is a prototype — your <a class="govuk-link" href="#">feedback</a> will help us improve it.'
+  }) }}
+  {{ govukBackLink({
+    text: "Back to templates",
+    href: "/v1/correspondence/" + caseData.id
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <span class="govuk-caption-l">{{ caseData.id }} — {{ caseData.applicant.name }}</span>
+      <h1 class="govuk-heading-l">{{ template.name }}</h1>
+
+      <p class="govuk-body">{{ template.description }}</p>
+
+      <form method="post" action="/v1/correspondence/{{ caseData.id }}/{{ template.id }}">
+
+        {% for field in template.fields %}
+          {% if field.type === 'text' %}
+            {{ govukInput({
+              label: {
+                text: field.label,
+                classes: "govuk-label--s"
+              },
+              hint: { text: field.hint } if field.hint,
+              id: field.id,
+              name: field.id,
+              value: data[field.id] or prefills[field.id] or ""
+            }) }}
+          {% elif field.type === 'textarea' %}
+            {{ govukTextarea({
+              label: {
+                text: field.label,
+                classes: "govuk-label--s"
+              },
+              hint: { text: field.hint } if field.hint,
+              id: field.id,
+              name: field.id,
+              rows: 4,
+              value: data[field.id] or prefills[field.id] or ""
+            }) }}
+          {% endif %}
+        {% endfor %}
+
+        {{ govukButton({
+          text: "Preview letter"
+        }) }}
+
+      </form>
+
+    </div>
+
+    {# Sidebar: case context #}
+    <div class="govuk-grid-column-one-third">
+
+      <h2 class="govuk-heading-m">Case details</h2>
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: { text: "Applicant" },
+            value: { text: caseData.applicant.name }
+          },
+          {
+            key: { text: "Benefit type" },
+            value: { text: caseData.benefitType }
+          },
+          {
+            key: { text: "Status" },
+            value: { html: govukTag({ text: caseData.status, classes: statusTagClass(caseData.status) }) }
+          },
+          {
+            key: { text: "Deadline" },
+            value: { text: caseData.deadline }
+          }
+        ]
+      }) }}
+
+      {% if caseData.applicant.representative %}
+        <h2 class="govuk-heading-m">Representative</h2>
+        {{ govukSummaryList({
+          rows: [
+            {
+              key: { text: "Organisation" },
+              value: { text: caseData.applicant.representative.name }
+            },
+            {
+              key: { text: "Reference" },
+              value: { text: caseData.applicant.representative.reference }
+            }
+          ]
+        }) }}
+      {% endif %}
+
+    </div>
+  </div>
+{% endblock %}

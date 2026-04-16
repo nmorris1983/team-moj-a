@@ -283,6 +283,22 @@
         {% endif %}
       {% endif %}
 
+      {# Action buttons #}
+      <h2 class="govuk-heading-m">Actions</h2>
+      <div class="govuk-button-group">
+        {% if hasDecisionTemplate %}
+          {{ govukButton({
+            text: "Record decision",
+            href: "/v1/decision/" + caseData.id
+          }) }}
+        {% endif %}
+        {{ govukButton({
+          text: "Send correspondence",
+          href: "/v1/correspondence/" + caseData.id,
+          classes: "govuk-button--secondary"
+        }) }}
+      </div>
+
       {# Policy guidance #}
       {% if policy %}
         <h2 class="govuk-heading-m">Policy guidance</h2>
