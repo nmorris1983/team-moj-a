@@ -1,0 +1,211 @@
+{
+  "precedents": [
+    {
+      "id": "PREC-2025-101",
+      "benefitType": "Personal Independence Payment",
+      "criterion": "Mobility activities",
+      "reviewGrounds": "Change of circumstances — mobility component",
+      "decisionDate": "14 November 2025",
+      "outcome": "Revised — enhanced rate mobility awarded",
+      "summary": "Applicant reported significant deterioration in mobility following hip replacement complications. GP report confirmed walking distance reduced to under 20 metres. Physiotherapy assessment supported the applicant's account. Original standard rate mobility revised to enhanced rate.",
+      "keyEvidence": [
+        "GP report confirming reduced mobility",
+        "Physiotherapy assessment with measured walking distance",
+        "Hospital discharge summary"
+      ],
+      "keyFactors": [
+        "Measured walking distance under 20 metres was decisive",
+        "Multiple medical sources corroborated the applicant's account",
+        "Deterioration was clearly evidenced since the original award"
+      ],
+      "decisionMaker": "Sarah Patel",
+      "tags": ["pip", "mobility", "change-of-circumstances", "revised", "enhanced-rate"]
+    },
+    {
+      "id": "PREC-2025-102",
+      "benefitType": "Personal Independence Payment",
+      "criterion": "Mobility activities",
+      "reviewGrounds": "Mandatory reconsideration — mobility component",
+      "decisionDate": "3 October 2025",
+      "outcome": "Upheld — no mobility component",
+      "summary": "Applicant disputed the refusal of a mobility component, reporting difficulty walking due to knee pain. GP letter confirmed diagnosis but did not quantify functional limitation. No physiotherapy or specialist assessment was available. The evidence was insufficient to demonstrate that the applicant met the descriptor thresholds for either planning journeys or moving around.",
+      "keyEvidence": [
+        "GP letter confirming diagnosis only",
+        "Applicant's own account on PIP2 form"
+      ],
+      "keyFactors": [
+        "GP letter confirmed diagnosis but did not address functional impact",
+        "No objective measurement of walking distance or mobility limitation",
+        "Applicant's own account alone was insufficient without corroborating medical evidence"
+      ],
+      "decisionMaker": "David Chen",
+      "tags": ["pip", "mobility", "mandatory-reconsideration", "upheld", "insufficient-evidence"]
+    },
+    {
+      "id": "PREC-2025-103",
+      "benefitType": "Personal Independence Payment",
+      "criterion": "Daily living activities",
+      "reviewGrounds": "Award review — daily living component",
+      "decisionDate": "22 September 2025",
+      "outcome": "Maintained — enhanced rate daily living",
+      "summary": "Scheduled review of enhanced rate daily living award. Occupational therapy assessment confirmed the applicant's needs remained stable. The applicant continued to require assistance with preparing food, managing medication, and washing. No change in circumstances since the original award.",
+      "keyEvidence": [
+        "Occupational therapy assessment",
+        "Applicant's PIP2 review form",
+        "Care plan from local authority"
+      ],
+      "keyFactors": [
+        "OT assessment confirmed needs were stable since original award",
+        "Care plan corroborated the level of support required",
+        "No evidence of improvement or deterioration"
+      ],
+      "decisionMaker": "Sarah Patel",
+      "tags": ["pip", "daily-living", "award-review", "maintained", "stable-needs"]
+    },
+    {
+      "id": "PREC-2025-104",
+      "benefitType": "Personal Independence Payment",
+      "criterion": "Daily living activities",
+      "reviewGrounds": "Mandatory reconsideration — daily living and mobility",
+      "decisionDate": "8 August 2025",
+      "outcome": "Revised — standard rate mobility added",
+      "summary": "Applicant disputed the absence of a mobility component alongside their standard rate daily living award. A rheumatology report confirmed significant joint pain affecting walking distance. The daily living component was maintained at standard rate. Standard rate mobility was added based on the rheumatology evidence showing the applicant could not walk more than 50 metres without significant pain.",
+      "keyEvidence": [
+        "Rheumatology consultant report",
+        "Applicant's PIP2 form",
+        "Pain clinic records"
+      ],
+      "keyFactors": [
+        "Specialist rheumatology report was the decisive evidence for mobility",
+        "Walking distance quantified at under 50 metres with significant pain",
+        "Daily living component unchanged as no new evidence for that component"
+      ],
+      "decisionMaker": "Lisa Thompson",
+      "tags": ["pip", "daily-living", "mobility", "mandatory-reconsideration", "revised", "standard-rate"]
+    },
+    {
+      "id": "PREC-2025-105",
+      "benefitType": "Employment and Support Allowance",
+      "criterion": "Limited capability for work",
+      "reviewGrounds": "Fit for work decision disputed",
+      "decisionDate": "19 December 2025",
+      "outcome": "Revised — placed in support group",
+      "summary": "Applicant disputed a fit-for-work decision. Psychiatrist report confirmed severe anxiety disorder with agoraphobia, preventing the applicant from leaving home unaccompanied. Employer sickness record showed 60 days absence in 6 months. The evidence demonstrated the applicant met the support group descriptor for substantial risk if found fit for work.",
+      "keyEvidence": [
+        "Consultant psychiatrist report",
+        "Employer sickness absence record",
+        "Community mental health team assessment"
+      ],
+      "keyFactors": [
+        "Psychiatrist report confirmed severity met support group threshold",
+        "Substantial risk descriptor was met — risk of significant deterioration if required to attend work-related activity",
+        "Employer sickness record corroborated the reported functional limitations"
+      ],
+      "decisionMaker": "James O'Brien",
+      "tags": ["esa", "lcw", "lcwra", "support-group", "mental-health", "revised"]
+    },
+    {
+      "id": "PREC-2025-106",
+      "benefitType": "Employment and Support Allowance",
+      "criterion": "Limited capability for work",
+      "reviewGrounds": "Fit for work decision disputed",
+      "decisionDate": "5 November 2025",
+      "outcome": "Revised — work-related activity group",
+      "summary": "Applicant disputed a fit-for-work decision citing depression and chronic fatigue. GP report confirmed diagnoses but noted the applicant was engaging with treatment and showing some improvement. The evidence supported limited capability for work (scoring 18 points across coping with change, social engagement, and initiating personal action) but did not meet the support group threshold.",
+      "keyEvidence": [
+        "GP report with treatment history",
+        "Applicant's ESA50 questionnaire",
+        "Counselling service progress notes"
+      ],
+      "keyFactors": [
+        "Points scored across three mental health descriptors totalled 18",
+        "Treatment engagement suggested capability could improve",
+        "Support group threshold not met as no single descriptor was fully satisfied"
+      ],
+      "decisionMaker": "David Chen",
+      "tags": ["esa", "lcw", "work-related-activity-group", "mental-health", "revised"]
+    },
+    {
+      "id": "PREC-2025-107",
+      "benefitType": "Employment and Support Allowance",
+      "criterion": "Limited capability for work",
+      "reviewGrounds": "Fit for work decision disputed",
+      "decisionDate": "28 September 2025",
+      "outcome": "Upheld — fit for work",
+      "summary": "Applicant disputed a fit-for-work decision citing back pain. GP letter confirmed chronic lower back pain but noted the applicant was managing daily activities independently. No specialist assessment was provided. The applicant scored 9 points, below the 15-point threshold for limited capability for work.",
+      "keyEvidence": [
+        "GP letter",
+        "Applicant's ESA50 questionnaire"
+      ],
+      "keyFactors": [
+        "GP evidence indicated the applicant was managing independently",
+        "Total points score of 9 was below the 15-point threshold",
+        "No specialist or occupational health evidence to support higher scoring"
+      ],
+      "decisionMaker": "Lisa Thompson",
+      "tags": ["esa", "lcw", "upheld", "fit-for-work", "physical-health"]
+    },
+    {
+      "id": "PREC-2025-108",
+      "benefitType": "Universal Credit — Limited capability for work",
+      "criterion": "Limited capability for work",
+      "reviewGrounds": "Disputed work capability assessment outcome",
+      "decisionDate": "12 January 2026",
+      "outcome": "Revised — limited capability for work-related activity",
+      "summary": "Applicant disputed a WCA outcome that found limited capability for work but not for work-related activity. A specialist pain consultant report confirmed fibromyalgia with severe fatigue episodes. The evidence demonstrated the applicant met the support group descriptor for substantial risk, as attempting work-related activity would cause significant deterioration in their condition.",
+      "keyEvidence": [
+        "Pain consultant report",
+        "Applicant's UC50 questionnaire",
+        "Occupational health assessment"
+      ],
+      "keyFactors": [
+        "Specialist pain report was decisive for the support group descriptor",
+        "Substantial risk of deterioration if required to undertake work-related activity",
+        "Occupational health assessment corroborated the functional limitations"
+      ],
+      "decisionMaker": "James O'Brien",
+      "tags": ["uc", "lcw", "lcwra", "support-group", "revised", "physical-health"]
+    },
+    {
+      "id": "PREC-2025-109",
+      "benefitType": "Attendance Allowance",
+      "criterion": "Night-time care needs",
+      "reviewGrounds": "Higher rate disputed — night-time needs",
+      "decisionDate": "17 October 2025",
+      "outcome": "Revised — higher rate awarded",
+      "summary": "Applicant was awarded lower rate Attendance Allowance and disputed the refusal of the higher rate. A district nurse care log documented night-time visits 3 times per week for catheter care and medication administration. The care log demonstrated prolonged and repeated attention at night, meeting the night condition for the higher rate.",
+      "keyEvidence": [
+        "District nurse care log covering 3 months",
+        "GP letter confirming night-time care needs",
+        "Applicant's AA1 form"
+      ],
+      "keyFactors": [
+        "District nurse care log provided objective evidence of night-time attention",
+        "Three visits per week constituted 'repeated attention at night'",
+        "GP letter corroborated the need for night-time supervision"
+      ],
+      "decisionMaker": "Sarah Patel",
+      "tags": ["aa", "night-time", "higher-rate", "revised", "care-log"]
+    },
+    {
+      "id": "PREC-2025-110",
+      "benefitType": "Attendance Allowance",
+      "criterion": "Night-time care needs",
+      "reviewGrounds": "Higher rate disputed — night-time needs",
+      "decisionDate": "2 September 2025",
+      "outcome": "Upheld — lower rate maintained",
+      "summary": "Applicant disputed the refusal of higher rate Attendance Allowance, claiming night-time supervision needs. The GP letter confirmed the diagnosis but did not specifically address night-time care. No district nurse or carer evidence was provided. The applicant's own account described occasional night-time disturbance but not prolonged or repeated attention. The evidence did not meet the night condition threshold.",
+      "keyEvidence": [
+        "GP letter (general, not night-specific)",
+        "Applicant's AA1 form"
+      ],
+      "keyFactors": [
+        "No objective evidence of night-time care from a professional carer or nurse",
+        "GP letter did not address night-time needs specifically",
+        "Applicant's account described occasional disturbance, not prolonged or repeated attention"
+      ],
+      "decisionMaker": "David Chen",
+      "tags": ["aa", "night-time", "lower-rate", "upheld", "insufficient-evidence"]
+    }
+  ]
+}

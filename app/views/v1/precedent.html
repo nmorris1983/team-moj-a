@@ -1,0 +1,104 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = precedent.id + " — Precedent" %}
+
+{% block beforeContent %}
+  {{ govukPhaseBanner({
+    tag: { text: "Alpha" },
+    html: 'This is a prototype — your <a class="govuk-link" href="#">feedback</a> will help us improve it.'
+  }) }}
+  {% if fromCase %}
+    {{ govukBackLink({
+      text: "Back to case",
+      href: "/v1/case/" + fromCase
+    }) }}
+  {% else %}
+    {{ govukBackLink({
+      text: "Back",
+      href: "javascript:history.back()"
+    }) }}
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <span class="govuk-caption-l">Past decision</span>
+      <h1 class="govuk-heading-l govuk-!-margin-bottom-2">{{ precedent.id }}</h1>
+      <p class="govuk-!-margin-bottom-6">
+        {% if "upheld" in precedent.outcome | lower %}
+          {{ govukTag({ text: "Upheld", classes: "govuk-tag--grey govuk-!-margin-right-1" }) }}
+        {% elif "maintained" in precedent.outcome | lower %}
+          {{ govukTag({ text: "Maintained", classes: "govuk-tag--blue govuk-!-margin-right-1" }) }}
+        {% else %}
+          {{ govukTag({ text: "Revised", classes: "govuk-tag--green govuk-!-margin-right-1" }) }}
+        {% endif %}
+        {{ govukTag({ text: precedent.decisionDate, classes: "govuk-tag--grey" }) }}
+      </p>
+
+      {# Decision summary #}
+      <h2 class="govuk-heading-m">Decision summary</h2>
+
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: { text: "Benefit type" },
+            value: { text: precedent.benefitType }
+          },
+          {
+            key: { text: "Criterion" },
+            value: { text: precedent.criterion }
+          },
+          {
+            key: { text: "Review grounds" },
+            value: { text: precedent.reviewGrounds }
+          },
+          {
+            key: { text: "Outcome" },
+            value: { text: precedent.outcome }
+          },
+          {
+            key: { text: "Decision date" },
+            value: { text: precedent.decisionDate }
+          },
+          {
+            key: { text: "Decision maker" },
+            value: { text: precedent.decisionMaker }
+          }
+        ]
+      }) }}
+
+      {# Case narrative #}
+      <h2 class="govuk-heading-m">What happened</h2>
+      <p class="govuk-body">{{ precedent.summary }}</p>
+
+      {# Key evidence #}
+      <h2 class="govuk-heading-m">Key evidence relied upon</h2>
+      <ul class="govuk-list govuk-list--bullet">
+        {% for ev in precedent.keyEvidence %}
+          <li>{{ ev }}</li>
+        {% endfor %}
+      </ul>
+
+      {# Key factors #}
+      <h2 class="govuk-heading-m">Key factors in the decision</h2>
+      <ul class="govuk-list govuk-list--bullet">
+        {% for factor in precedent.keyFactors %}
+          <li>{{ factor }}</li>
+        {% endfor %}
+      </ul>
+
+      {{ govukInsetText({
+        text: "Past decisions are not binding but should be considered for consistency. Each case must be decided on its own evidence."
+      }) }}
+
+      {% if fromCase %}
+        <p class="govuk-body">
+          <a href="/v1/case/{{ fromCase }}" class="govuk-link">Return to case {{ fromCase }}</a>
+        </p>
+      {% endif %}
+
+    </div>
+  </div>
+{% endblock %}

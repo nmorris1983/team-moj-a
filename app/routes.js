@@ -12,6 +12,7 @@ const policies = require('./data/policies.json')
 const workflows = require('./data/workflows.json')
 const decisionTemplates = require('./data/decision-templates.json')
 const correspondenceTemplates = require('./data/correspondence-templates.json')
+const precedents = require('./data/precedents.json')
 
 // Helper: get status tag colour
 function statusTagClass (status) {
@@ -83,6 +84,43 @@ function evidenceStatus (caseData) {
   const overdue = caseData.evidenceRequests.filter(e => e.status === 'Overdue').length
   const pending = caseData.evidenceRequests.filter(e => e.status === 'Pending').length
   return { total, received, overdue, pending }
+}
+
+// Helper: find similar precedent cases for a given case
+function getSimilarPrecedents (caseData) {
+  // Build a set of tags from the case to match against
+  const caseTags = []
+
+  // Benefit type tags
+  const bt = caseData.benefitType.toLowerCase()
+  if (bt.includes('personal independence')) caseTags.push('pip')
+  if (bt.includes('employment and support')) caseTags.push('esa')
+  if (bt.includes('universal credit')) caseTags.push('uc')
+  if (bt.includes('attendance allowance')) caseTags.push('aa')
+
+  // Criterion tags from review grounds
+  const rg = caseData.reviewGrounds.toLowerCase()
+  if (rg.includes('mobility')) caseTags.push('mobility')
+  if (rg.includes('daily living')) caseTags.push('daily-living')
+  if (rg.includes('night')) caseTags.push('night-time')
+  if (rg.includes('fit for work') || rg.includes('work capability')) {
+    caseTags.push('lcw')
+  }
+  if (rg.includes('change of circumstances')) caseTags.push('change-of-circumstances')
+  if (rg.includes('mandatory reconsideration')) caseTags.push('mandatory-reconsideration')
+  if (rg.includes('review')) caseTags.push('award-review')
+
+  // Score each precedent by how many tags match
+  const scored = precedents.precedents.map(function (prec) {
+    const matchCount = prec.tags.filter(t => caseTags.includes(t)).length
+    return { precedent: prec, score: matchCount }
+  })
+
+  // Filter to those with at least 2 matching tags, sort by score descending
+  return scored
+    .filter(s => s.score >= 2)
+    .sort((a, b) => b.score - a.score)
+    .map(s => s.precedent)
 }
 
 // Helper: replace template placeholders with case data
@@ -214,6 +252,9 @@ router.get('/v1/case/:caseId', function (req, res) {
   // Check if decision template exists for action buttons
   const hasDecisionTemplate = !!getDecisionTemplate(caseData.benefitType)
 
+  // Find similar precedent cases
+  const similarPrecedents = getSimilarPrecedents(caseData)
+
   res.render('v1/case', {
     caseData: caseData,
     caseworker: caseworker,
@@ -222,7 +263,8 @@ router.get('/v1/case/:caseId', function (req, res) {
     workflowSteps: workflowSteps,
     isEscalated: isEscalated,
     evStatus: evStatus,
-    hasDecisionTemplate: hasDecisionTemplate
+    hasDecisionTemplate: hasDecisionTemplate,
+    similarPrecedents: similarPrecedents
   })
 })
 
@@ -270,6 +312,44 @@ router.get('/v1/team', function (req, res) {
 })
 
 // ============================================================
+// Precedent / similar cases routes
+// ============================================================
+
+// Similar cases for a given case
+router.get('/v1/case/:caseId/similar', function (req, res) {
+  const caseData = cases.cases.find(c => c.id === req.params.caseId)
+
+  if (!caseData) {
+    res.status(404).render('v1/case-not-found')
+    return
+  }
+
+  const similarPrecedents = getSimilarPrecedents(caseData)
+
+  res.render('v1/similar-cases', {
+    caseData: caseData,
+    similarPrecedents: similarPrecedents
+  })
+})
+
+// Individual precedent detail
+router.get('/v1/precedent/:precedentId', function (req, res) {
+  const prec = precedents.precedents.find(p => p.id === req.params.precedentId)
+
+  if (!prec) {
+    res.status(404).render('v1/case-not-found')
+    return
+  }
+
+  const fromCase = req.query.from || null
+
+  res.render('v1/precedent', {
+    precedent: prec,
+    fromCase: fromCase
+  })
+})
+
+// ============================================================
 // Decision routes
 // ============================================================
 
@@ -284,9 +364,13 @@ router.get('/v1/decision/:caseId', function (req, res) {
 
   const template = getDecisionTemplate(caseData.benefitType)
 
+  // Find similar precedent cases for reference while making a decision
+  const similarPrecedents = getSimilarPrecedents(caseData)
+
   res.render('v1/decision', {
     caseData: caseData,
-    template: template
+    template: template,
+    similarPrecedents: similarPrecedents
   })
 })
 
