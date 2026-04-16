@@ -47,8 +47,7 @@
             {% for item in category.items %}
               {% set checkboxItems = (checkboxItems.push({
                 value: item.id,
-                text: item.text,
-                hint: { text: item.guidance }
+                text: item.text
               }), checkboxItems) %}
             {% endfor %}
 
@@ -62,6 +61,17 @@
               },
               items: checkboxItems
             }) }}
+
+            {% for item in category.items %}
+              <details class="govuk-details govuk-!-margin-bottom-2 govuk-!-margin-top-0">
+                <summary class="govuk-details__summary">
+                  <span class="govuk-details__summary-text">Guidance: {{ item.text | truncate(60) }}</span>
+                </summary>
+                <div class="govuk-details__text">
+                  {{ item.guidance }}
+                </div>
+              </details>
+            {% endfor %}
 
           {% endfor %}
 
