@@ -1,5 +1,5 @@
 {
-  "serviceName": "Benefit review case manager",
+  "serviceName": "Legal Aid case manager",
   "useServiceNavigation": true,
   "plugins": {
     "govuk-frontend": {
