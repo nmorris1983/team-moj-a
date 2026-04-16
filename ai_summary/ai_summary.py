@@ -211,8 +211,6 @@ def generate_summaries(model_name: str = "qwen2.5:0.5b") -> list[dict]:
     with open(DATA_DIR / "enriched_cases.json") as f:
         cases = json.load(f)
 
-    cases = cases[:5]  # Process first 5 cases only
-
     try:
         cases = _summarise_with_laurium(cases, model_name)
     except Exception as e:

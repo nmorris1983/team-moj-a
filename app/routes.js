@@ -13,6 +13,14 @@ const workflows = require('./data/workflows.json')
 const decisionTemplates = require('./data/decision-templates.json')
 const correspondenceTemplates = require('./data/correspondence-templates.json')
 
+// Load AI-generated summaries (produced by ai_summary/main.py)
+let aiNotes = []
+try {
+  aiNotes = require('../data/ai_notes.json')
+} catch (e) {
+  console.warn('ai_notes.json not found — run ai_summary/main.py to generate it')
+}
+
 // Helper: get status tag colour
 function statusTagClass (status) {
   const map = {
@@ -127,6 +135,7 @@ router.use(function (req, res, next) {
   res.locals.cases = cases
   res.locals.policies = policies
   res.locals.workflows = workflows
+  res.locals.aiNotes = aiNotes
   res.locals.statusTagClass = statusTagClass
   res.locals.deadlineTag = deadlineTag
   res.locals.getWorkflow = getWorkflow
@@ -173,6 +182,7 @@ router.get('/v1/dashboard', function (req, res) {
     caseworker: caseworker,
     caseworkerId: caseworkerId,
     myCases: myCases,
+    aiNotes: aiNotes,
     counts: {
       total: myCases.length,
       atRisk: atRisk,
@@ -184,11 +194,26 @@ router.get('/v1/dashboard', function (req, res) {
 
 // Case detail view
 router.get('/v1/case/:caseId', function (req, res) {
-  const caseData = cases.cases.find(c => c.id === req.params.caseId)
+  const caseIndex = cases.cases.findIndex(c => c.id === req.params.caseId)
+  const caseData = cases.cases[caseIndex]
 
   if (!caseData) {
     res.status(404).render('v1/case-not-found')
     return
+  }
+
+  // Merge AI-generated summary from ai_notes.json if available for this case
+  const aiNote = aiNotes[caseIndex]
+  if (aiNote && aiNote.ai_summary) {
+    caseData.aiAdvisor = caseData.aiAdvisor || {}
+    caseData.aiAdvisor.summary = aiNote.ai_summary
+    caseData.aiAdvisor.riskLevel = aiNote.ai_risk_level
+    if (aiNote.ai_next_action) {
+      const nextAction = typeof aiNote.ai_next_action === 'string'
+        ? aiNote.ai_next_action
+        : Object.entries(aiNote.ai_next_action).map(([k, v]) => k.replace(/_/g, ' ')).join(', ')
+      caseData.aiAdvisor.recommendedActions = [nextAction]
+    }
   }
 
   const caseworker = cases.caseworkers.find(c => c.id === caseData.assignedTo)

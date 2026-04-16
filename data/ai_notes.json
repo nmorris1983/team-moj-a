@@ -34,11 +34,8 @@
       "reminder_days": 28,
       "escalation_days": 56
     },
-    "ai_summary": "Applicant relocated from Birmingham to Manchester in December 2025. The claim was closed due to change of circumstances, and the new claim is pending. Evidence has been requested for proof of address and income statement.",
-    "ai_next_action": {
-      "send_evidence_request": true,
-      "issue_reminder": true
-    },
+    "ai_summary": "The case is under review due to a change in address and income statement. The caseworker should obtain proof of new address, an income statement covering the previous 3 months, and a signed declaration confirming the change. If any evidence is outstanding after 28 days, a reminder should be issued.",
+    "ai_next_action": "Issue reminder if evidence outstanding after 28 days",
     "ai_risk_level": "medium"
   },
   {
@@ -78,9 +75,9 @@
       "Review any objections received"
     ],
     "escalation_thresholds": {},
-    "ai_summary": "The applicant has an annual community festival with a capacity of 500 people. The application was received by post, and the necessary documents were included.",
-    "ai_next_action": "Verify all required documents are present and valid",
-    "ai_risk_level": "low"
+    "ai_summary": "An applicant for an annual community festival licence has been accepted. The application was received by post on 14 February, with supporting documents included. A preliminary inspection report is clean. The case is awaiting a decision from the senior caseworker.",
+    "ai_next_action": "Arrange site inspection where required",
+    "ai_risk_level": "medium"
   },
   {
     "case_id": "CASE-2026-00107",
@@ -123,8 +120,8 @@
       "Await instruction on enforcement action"
     ],
     "escalation_thresholds": {},
-    "ai_summary": "Two breaches identified during site visit, requiring immediate attention and legal review.",
-    "ai_next_action": "Brief senior officer within 2 working days with a detailed list of findings and instructions for enforcement actions.",
+    "ai_summary": "Two minor breaches identified during site visit, requiring a compliance check triggered by third-party referral. The case must be escalated to a senior officer within 2 working days.",
+    "ai_next_action": "Brief the senior officer with the findings and instructions for enforcement action",
     "ai_risk_level": "medium"
   },
   {
@@ -168,7 +165,7 @@
       "Include mandatory reconsideration notice if reducing or ceasing benefit"
     ],
     "escalation_thresholds": {},
-    "ai_summary": "Case notes: Change of employment from full-time to part-time (22 hours per week). New income is below threshold \u2014 entitlement appears to increase under current policy. Draft decision recommends award adjustment.",
+    "ai_summary": "A change of employment from full-time to part-time (22 hours per week) has been reported. The claimant's income is below the threshold, and a decision was made to award an increase in entitlement under current policy. A draft decision letter will be prepared.",
     "ai_next_action": "Draft decision letter",
     "ai_risk_level": "low"
   },
@@ -202,11 +199,203 @@
       "reminder_days": 28,
       "escalation_days": 56
     },
-    "ai_summary": "The caseworker needs to send a medical certificate and current income statement to the applicant's registered address on 5 March, as no response has been received. The next action is to issue a reminder for the 28-day deadline.",
-    "ai_next_action": {
-      "send_request": "Yes",
-      "issue_reminder": "Yes"
-    },
+    "ai_summary": "The annual reassessment triggered by a change in address has not been completed. The caseworker should send the evidence request and issue a reminder for the outstanding income statement.",
+    "ai_next_action": "Issue a reminder to the applicant for the outstanding income statement as the 28-day threshold has been reached.",
+    "ai_risk_level": "medium"
+  },
+  {
+    "case_id": "CASE-2026-00172",
+    "case_type": "licence_application",
+    "status": "closed",
+    "created_date": "2026-01-05",
+    "last_updated": "2026-02-28",
+    "timeline": [
+      {
+        "date": "2026-01-05",
+        "event": "case_created",
+        "note": "Application for premises licence renewal."
+      },
+      {
+        "date": "2026-01-09",
+        "event": "evidence_verified",
+        "note": "All documents verified. No objections received during consultation period."
+      },
+      {
+        "date": "2026-01-20",
+        "event": "under_review",
+        "note": "Review completed. No issues identified."
+      },
+      {
+        "date": "2026-01-22",
+        "event": "pending_decision",
+        "note": "Decision drafted \u2014 renewal recommended."
+      },
+      {
+        "date": "2026-02-28",
+        "event": "closed",
+        "note": "Licence renewed. Applicant notified by letter."
+      }
+    ],
+    "case_notes": "Renewal of existing premises licence. Clean history over 5-year term. Renewal approved without conditions. File closed.",
+    "policy_body": "An applicant for a licence must: (1) be aged 18 or over, or be a registered legal entity, (2) not have had a licence revoked within the preceding 5 years, (3) not be subject to any current court order that would prohibit the activity being licensed, and (4) hold valid public liability insurance of at least \u00a32 million for premises or event licences. Applications that do not meet these criteria must be refused at the initial assessment stage. All licence applications must be accompanied by: (1) proof of identity (passport or driving licence), (2) proof of address dated within the last 3 months, (3) a completed application form, and (4) the applicable fee. Premises licences additionally require a site plan and, where regulated entertainment is proposed, a noise management plan. Event licences additionally require a site plan, crowd management plan, and evidence of public liability insurance. All new premises and event licence applications must be subject to a 28-day public consultation. Objections must be made in writing and must state the specific licensing objective they relate to. Objections from responsible authorities (police, fire service, environmental health) carry additional weight and must be considered in full. Where two or more substantive objections are received, the application must be referred to a senior caseworker before a decision is issued.",
+    "required_actions": [
+      "Issue licence or refusal notice",
+      "Log outcome on register",
+      "Archive case file"
+    ],
+    "escalation_thresholds": {},
+    "ai_summary": "A premises licence renewal was approved without any conditions. The applicant's identity and address were verified, and no objections were received during the consultation period. A new application for a premises license was submitted in 2026-01-09.",
+    "ai_next_action": "Issue a refusal notice to the applicant.",
+    "ai_risk_level": "high"
+  },
+  {
+    "case_id": "CASE-2026-00199",
+    "case_type": "compliance_check",
+    "status": "awaiting_evidence",
+    "created_date": "2026-03-15",
+    "last_updated": "2026-03-18",
+    "timeline": [
+      {
+        "date": "2026-03-15",
+        "event": "case_created",
+        "note": "Routine compliance check \u2014 scheduled as part of annual programme."
+      },
+      {
+        "date": "2026-03-18",
+        "event": "evidence_requested",
+        "note": "Requested course delivery records, learner outcomes data, and tutor qualification certificates."
+      }
+    ],
+    "case_notes": "Routine scheduled check. Organisation last inspected 18 months ago with no issues found. Evidence request sent by email and recorded post. 28-day response window in progress.",
+    "policy_body": "A compliance check may be initiated in the following circumstances: (1) as part of the scheduled annual inspection programme, (2) following receipt of a complaint or referral from a third party, (3) where intelligence suggests non-compliance, or (4) where a previous inspection identified issues requiring follow-up. Compliance checks triggered by third-party referrals must be acknowledged within 5 working days and commenced within 20 working days. The caseworker must request relevant documentation at the outset of the compliance check. The organisation must respond within 28 days. Where a site visit is required, the caseworker must provide at least 5 working days' notice except in cases where there is a risk that evidence may be concealed or destroyed. Site visits must be conducted by at least two officers. A written record of all findings must be completed within 3 working days of the visit. Where a compliance check identifies a minor breach (defined as a breach that does not present a risk to the public or to individuals), the caseworker may issue a written warning and allow 28 days for remediation. Where a serious breach is identified (defined as a breach that presents a risk to the public, involves financial irregularity, or involves a repeated failure), the case must be escalated to a senior officer within 2 working days. Legal proceedings may be recommended by the senior officer where the breach meets the relevant threshold.",
+    "required_actions": [
+      "Send evidence request",
+      "Give organisation 28 days to respond",
+      "Arrange site visit if required (5 working days notice)"
+    ],
+    "escalation_thresholds": {},
+    "ai_summary": "Routine compliance check scheduled, but no issues found. Evidence requested via email and recorded post. Compliance checks triggered by third-party referrals must be acknowledged within 5 working days and commenced within 20 working days. The organization must respond within 28 days. Site visits require at least 5 working days' notice except in cases of risk to the public or individuals.",
+    "ai_next_action": "Send evidence request",
+    "ai_risk_level": "low"
+  },
+  {
+    "case_id": "CASE-2026-00214",
+    "case_type": "benefit_review",
+    "status": "escalated",
+    "created_date": "2025-11-10",
+    "last_updated": "2026-01-20",
+    "timeline": [
+      {
+        "date": "2025-11-10",
+        "event": "case_created",
+        "note": "Review triggered by change of address notification."
+      },
+      {
+        "date": "2025-11-17",
+        "event": "evidence_requested",
+        "note": "Requested proof of new address and updated tenancy agreement."
+      },
+      {
+        "date": "2026-01-20",
+        "event": "escalated",
+        "note": "Evidence outstanding for 64 days. Escalated to team leader per policy."
+      }
+    ],
+    "case_notes": "Evidence has been outstanding for 64 days, which exceeds the 56-day escalation threshold defined in POL-BR-003. Two reminder letters sent (day 28 and day 42). No response received. Applicant's telephone number on record appears to be incorrect. Team leader to advise on next steps.",
+    "policy_body": "A benefit review may be initiated in the following circumstances: (1) the claimant reports a change of circumstances that may affect entitlement, (2) information received from a third party suggests the claimant's circumstances have changed, (3) the claim is selected as part of the annual reassessment programme, or (4) the claim has been active for more than 24 months without a review. Reviews must be completed within 90 days of the trigger event. The following changes of circumstances must be reported by the claimant within 14 days and will trigger a review: change of address, change of employment status or working hours, change in household composition, change in income above or below the relevant threshold, or commencement or cessation of education. Failure to report a change of circumstances within 14 days may result in recovery of overpaid amounts. When a benefit review is triggered by a change of circumstances, the caseworker must obtain: (1) proof of the new address (if applicable), (2) an income statement covering the 3 months prior to the change, and (3) a signed declaration confirming the change. If any evidence is outstanding after 28 days, the caseworker should issue a reminder. If outstanding after 56 days, the case should be escalated to a team leader. Decisions resulting in an award increase of more than \u00a350 per week require sign-off from a team leader before the claimant is notified. Decisions resulting in a reduction or cessation of benefit must be accompanied by a mandatory reconsideration notice. All decisions must be notified to the claimant in writing within 5 working days of the decision being made.",
+    "required_actions": [
+      "Brief team leader on case history and reason for escalation",
+      "Log escalation date and reason",
+      "Await team leader instruction before taking further action"
+    ],
+    "escalation_thresholds": {},
+    "ai_summary": "The applicant's case has been triggered by a change of circumstances, with evidence outstanding for over 64 days. The caseworker should issue a reminder to the applicant and escalate the case to the team leader.",
+    "ai_next_action": "Send a reminder letter to the applicant detailing the outstanding evidence and the need to take further action.",
+    "ai_risk_level": "high"
+  },
+  {
+    "case_id": "CASE-2026-00231",
+    "case_type": "licence_application",
+    "status": "pending_decision",
+    "created_date": "2026-02-20",
+    "last_updated": "2026-04-01",
+    "timeline": [
+      {
+        "date": "2026-02-20",
+        "event": "case_created",
+        "note": "New application for premises licence \u2014 outdoor venue."
+      },
+      {
+        "date": "2026-02-25",
+        "event": "evidence_requested",
+        "note": "Requested noise management plan, site plan, and public liability insurance."
+      },
+      {
+        "date": "2026-03-10",
+        "event": "evidence_received",
+        "note": "All documents received."
+      },
+      {
+        "date": "2026-03-14",
+        "event": "consultation_opened",
+        "note": "28-day public consultation opened."
+      },
+      {
+        "date": "2026-04-01",
+        "event": "pending_decision",
+        "note": "Two objections received during consultation. Being reviewed before decision."
+      }
+    ],
+    "case_notes": "Two objections received from local residents during consultation period \u2014 both relate to potential noise impact on residential properties. Applicant has submitted an updated noise management plan in response. Senior caseworker to review objections and updated plan before issuing decision.",
+    "policy_body": "An applicant for a licence must: (1) be aged 18 or over, or be a registered legal entity, (2) not have had a licence revoked within the preceding 5 years, (3) not be subject to any current court order that would prohibit the activity being licensed, and (4) hold valid public liability insurance of at least \u00a32 million for premises or event licences. Applications that do not meet these criteria must be refused at the initial assessment stage. All licence applications must be accompanied by: (1) proof of identity (passport or driving licence), (2) proof of address dated within the last 3 months, (3) a completed application form, and (4) the applicable fee. Premises licences additionally require a site plan and, where regulated entertainment is proposed, a noise management plan. Event licences additionally require a site plan, crowd management plan, and evidence of public liability insurance. All new premises and event licence applications must be subject to a 28-day public consultation. Objections must be made in writing and must state the specific licensing objective they relate to. Objections from responsible authorities (police, fire service, environmental health) carry additional weight and must be considered in full. Where two or more substantive objections are received, the application must be referred to a senior caseworker before a decision is issued.",
+    "required_actions": [
+      "Refer to senior caseworker if two or more substantive objections received",
+      "Draft decision with reasons",
+      "Notify applicant of outcome"
+    ],
+    "escalation_thresholds": {},
+    "ai_summary": "Two new premises and event licences were submitted. The first licence was for an outdoor venue, but the second was for a public space. A consultation period has started, and the applicant must provide proof of address, site plan, and public liability insurance before issuing a decision.",
+    "ai_next_action": "Refer to senior caseworker if two or more substantive objections received",
+    "ai_risk_level": "medium"
+  },
+  {
+    "case_id": "CASE-2026-00248",
+    "case_type": "compliance_check",
+    "status": "under_review",
+    "created_date": "2026-03-01",
+    "last_updated": "2026-04-03",
+    "timeline": [
+      {
+        "date": "2026-03-01",
+        "event": "case_created",
+        "note": "Compliance check triggered by whistleblower report."
+      },
+      {
+        "date": "2026-03-05",
+        "event": "evidence_requested",
+        "note": "Requested health and safety records, site inspection logs, and incident reports for the past 12 months."
+      },
+      {
+        "date": "2026-03-19",
+        "event": "evidence_received",
+        "note": "Full documentation package received."
+      },
+      {
+        "date": "2026-03-25",
+        "event": "under_review",
+        "note": "Documents under review. Initial read suggests records are largely compliant."
+      }
+    ],
+    "case_notes": "Triggered by anonymous report alleging inadequate health and safety practices at two sites. Documentation received is extensive and appears largely in order. One gap noted: no incident log entries for a 6-week period in autumn 2025. Organisation has been asked for clarification on this gap.",
+    "policy_body": "A compliance check may be initiated in the following circumstances: (1) as part of the scheduled annual inspection programme, (2) following receipt of a complaint or referral from a third party, (3) where intelligence suggests non-compliance, or (4) where a previous inspection identified issues requiring follow-up. Compliance checks triggered by third-party referrals must be acknowledged within 5 working days and commenced within 20 working days. The caseworker must request relevant documentation at the outset of the compliance check. The organisation must respond within 28 days. Where a site visit is required, the caseworker must provide at least 5 working days' notice except in cases where there is a risk that evidence may be concealed or destroyed. Site visits must be conducted by at least two officers. A written record of all findings must be completed within 3 working days of the visit. Where a compliance check identifies a minor breach (defined as a breach that does not present a risk to the public or to individuals), the caseworker may issue a written warning and allow 28 days for remediation. Where a serious breach is identified (defined as a breach that presents a risk to the public, involves financial irregularity, or involves a repeated failure), the case must be escalated to a senior officer within 2 working days. Legal proceedings may be recommended by the senior officer where the breach meets the relevant threshold.",
+    "required_actions": [
+      "Review all documentation against compliance requirements",
+      "Complete site visit record within 3 working days if applicable",
+      "Identify any breaches and classify as minor or serious"
+    ],
+    "escalation_thresholds": {},
+    "ai_summary": "A compliance check was triggered by an anonymous report alleging inadequate health and safety practices at two sites. Documentation received is extensive, but there are gaps in the records for a 6-week period in autumn 2025.",
+    "ai_next_action": "Request relevant documentation from the organisation within 28 days",
     "ai_risk_level": "medium"
   }
 ]
